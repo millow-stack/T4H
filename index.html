@@ -436,25 +436,14 @@
       background: var(--bg);
     }
 
-    /* Animated gradient mesh canvas */
-    #heroMeshCanvas {
+    /* Network graph canvas */
+    #heroNetworkCanvas {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
       z-index: 0;
-    }
-
-    /* Cursor spotlight overlay */
-    .cursor-glow {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      mix-blend-mode: screen;
     }
 
     /* ── HERO SECTION ── */
@@ -2142,8 +2131,7 @@
 
   <!-- HERO WRAPPER (cursor glow boundary) -->
   <div class="hero-wrapper" id="heroWrapper">
-    <canvas id="heroMeshCanvas" aria-hidden="true"></canvas>
-    <div class="cursor-glow" id="cursorGlow"></div>
+    <canvas id="heroNetworkCanvas" aria-hidden="true"></canvas>
 
     <!-- NAV -->
     <nav>
@@ -2858,136 +2846,10 @@
     </div>
   </footer>
 
+  <script src="scripts/network-graph.js"></script>
   <script>
-    // ── Hero: Animated Gradient Mesh Background + Cursor Spotlight ──
-    (function () {
-      const canvas = document.getElementById('heroMeshCanvas');
-      const ctx = canvas.getContext('2d');
-      const wrapper = document.getElementById('heroWrapper');
-      const glow = document.getElementById('cursorGlow');
-
-      // ── Canvas sizing ──
-      function resizeCanvas() {
-        canvas.width  = wrapper.offsetWidth;
-        canvas.height = wrapper.offsetHeight;
-      }
-      resizeCanvas();
-      const ro = new ResizeObserver(resizeCanvas);
-      ro.observe(wrapper);
-
-      // ── Simple smooth noise (value noise) ──
-      // Returns a smoothly interpolated value in [0,1] for any time t
-      function smoothNoise(seed, t) {
-        const i = Math.floor(t);
-        const f = t - i;
-        // Fade
-        const u = f * f * (3 - 2 * f);
-        const a = Math.sin(seed * 127.1 + i * 311.7) * 43758.5453;
-        const b = Math.sin(seed * 127.1 + (i + 1) * 311.7) * 43758.5453;
-        return (a - Math.floor(a)) * (1 - u) + (b - Math.floor(b)) * u;
-      }
-
-      // ── Blob definitions ──
-      const BLOBS = [
-        { seed: 1,  color: [139, 34,  226], alpha: 0.30, rFrac: 0.52, speed: 0.00018 },
-        { seed: 2,  color: [217, 38,  181], alpha: 0.22, rFrac: 0.44, speed: 0.00023 },
-        { seed: 3,  color: [ 99, 102, 241], alpha: 0.18, rFrac: 0.40, speed: 0.00015 },
-        { seed: 4,  color: [168, 85,  247], alpha: 0.20, rFrac: 0.38, speed: 0.00020 },
-        { seed: 5,  color: [ 30,  18, 184], alpha: 0.15, rFrac: 0.35, speed: 0.00012 },
-        { seed: 6,  color: [192, 132, 252], alpha: 0.12, rFrac: 0.30, speed: 0.00028 },
-      ];
-
-      let startTime = null;
-      let meshRafId = null;
-
-      function drawMesh(timestamp) {
-        if (!startTime) startTime = timestamp;
-        const t = timestamp - startTime;
-
-        const W = canvas.width;
-        const H = canvas.height;
-
-        ctx.clearRect(0, 0, W, H);
-
-        // Dark base
-        ctx.fillStyle = 'rgba(7, 5, 16, 1)';
-        ctx.fillRect(0, 0, W, H);
-
-        // Draw each blob
-        BLOBS.forEach(function (blob) {
-          // Independent X and Y noise channels
-          const nx = smoothNoise(blob.seed,       t * blob.speed);
-          const ny = smoothNoise(blob.seed + 100, t * blob.speed);
-
-          // Map noise [0,1] → canvas coords with some margin
-          const margin = 0.15;
-          const bx = (margin + nx * (1 - 2 * margin)) * W;
-          const by = (margin + ny * (1 - 2 * margin)) * H;
-          const radius = Math.min(W, H) * blob.rFrac;
-
-          const [r, g, b] = blob.color;
-          const grad = ctx.createRadialGradient(bx, by, 0, bx, by, radius);
-          grad.addColorStop(0,   'rgba(' + r + ',' + g + ',' + b + ',' + blob.alpha + ')');
-          grad.addColorStop(0.5, 'rgba(' + r + ',' + g + ',' + b + ',' + (blob.alpha * 0.4) + ')');
-          grad.addColorStop(1,   'rgba(' + r + ',' + g + ',' + b + ', 0)');
-
-          ctx.beginPath();
-          ctx.arc(bx, by, radius, 0, Math.PI * 2);
-          ctx.fillStyle = grad;
-          ctx.fill();
-        });
-
-        // Subtle dark vignette around edges
-        const vignette = ctx.createRadialGradient(W/2, H/2, H * 0.3, W/2, H/2, Math.max(W, H) * 0.8);
-        vignette.addColorStop(0,   'rgba(7, 5, 16, 0)');
-        vignette.addColorStop(1,   'rgba(7, 5, 16, 0.55)');
-        ctx.fillStyle = vignette;
-        ctx.fillRect(0, 0, W, H);
-
-        meshRafId = requestAnimationFrame(drawMesh);
-      }
-
-      meshRafId = requestAnimationFrame(drawMesh);
-
-      // ── Cursor spotlight ──
-      let mouseX = 0, mouseY = 0;
-      let spotX = -9999, spotY = -9999;
-      let spotVisible = false;
-      let spotRafId = null;
-
-      function lerpSpot(a, b, t) { return a + (b - a) * t; }
-
-      function animateSpot() {
-        spotX = lerpSpot(spotX, mouseX, 0.10);
-        spotY = lerpSpot(spotY, mouseY, 0.10);
-
-        if (spotVisible) {
-          glow.style.background =
-            'radial-gradient(600px circle at ' + spotX + 'px ' + spotY + 'px, ' +
-            'rgba(192, 132, 252, 0.18) 0%, ' +
-            'rgba(139, 34, 226, 0.10) 35%, ' +
-            'rgba(217, 38, 181, 0.06) 60%, ' +
-            'transparent 80%)';
-        }
-        spotRafId = requestAnimationFrame(animateSpot);
-      }
-      spotRafId = requestAnimationFrame(animateSpot);
-
-      wrapper.addEventListener('mousemove', function (e) {
-        const rect = wrapper.getBoundingClientRect();
-        mouseX = e.clientX - rect.left;
-        mouseY = e.clientY - rect.top + window.scrollY;
-        if (!spotVisible) {
-          spotVisible = true;
-          glow.style.opacity = '1';
-        }
-      });
-
-      wrapper.addEventListener('mouseleave', function () {
-        spotVisible = false;
-        glow.style.opacity = '0';
-      });
-    })();
+    // ── Hero: Interactive Network Graph Background ──
+    initNetworkGraph('heroNetworkCanvas', 'heroWrapper');
 
     // ── Mobile Nav Toggle ──
     (function () {

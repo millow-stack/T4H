@@ -317,16 +317,17 @@
     .gallery-hero-wrapper {
       position: relative;
       overflow: hidden;
-      background: radial-gradient(circle at 50% -20%, rgba(121, 22, 205, 0.18) 0%, transparent 40%);
+      background: var(--bg);
     }
 
-    .cursor-glow {
+    /* Network graph canvas */
+    #galleryNetworkCanvas {
       position: absolute;
       inset: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-      z-index: 1;
-      opacity: 0;
-      transition: opacity 0.4s ease;
+      z-index: 0;
     }
 
     .gallery-filter-container {
@@ -829,7 +830,7 @@
 
   <!-- HERO WRAPPER (cursor glow boundary) -->
   <div class="gallery-hero-wrapper" id="heroWrapper">
-    <div class="cursor-glow" id="cursorGlow"></div>
+    <canvas id="galleryNetworkCanvas" aria-hidden="true"></canvas>
 
     <!-- NAV -->
     <nav>
@@ -1058,34 +1059,10 @@
   <!-- LOAD AUTOMATICALLY GENERATED DATA -->
   <script src="gallery-data.js"></script>
 
+  <script src="scripts/network-graph.js"></script>
   <script>
-    // ── Cursor Glow Effect ──
-    (function () {
-      const wrapper = document.getElementById('heroWrapper');
-      const glow = document.getElementById('cursorGlow');
-      let rafId = null;
-
-      wrapper.addEventListener('mousemove', function (e) {
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(function () {
-          const rect = wrapper.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top + window.scrollY;
-
-          glow.style.background =
-            'radial-gradient(700px circle at ' + x + 'px ' + y + 'px, ' +
-            'rgba(139, 34, 226, 0.22), ' +
-            'rgba(168, 85, 247, 0.10) 40%, ' +
-            'transparent 70%)';
-          glow.style.opacity = '1';
-        });
-      });
-
-      wrapper.addEventListener('mouseleave', function () {
-        if (rafId) cancelAnimationFrame(rafId);
-        glow.style.opacity = '0';
-      });
-    })();
+    // ── Gallery: Interactive Network Graph Background ──
+    initNetworkGraph('galleryNetworkCanvas', 'heroWrapper');
 
     // ── Mobile Nav Toggle ──
     (function () {
