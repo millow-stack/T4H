@@ -65,7 +65,7 @@ const galleryEvents = [
   },
   {
     "id": "techsanam-2.0",
-    "name": "Techsanam 2.0",
+    "name": "Techsangam 2.0",
     "category": "meetups",
     "description": "A vibrant confluence of tech enthusiasts, speakers, and innovators at Techsanam 2.0.",
     "images": [
