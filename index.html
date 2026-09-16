@@ -2328,103 +2328,18 @@
         <p class="section-subtitle">Take a look at the milestones we've reached and events we have conducted across tech hubs.</p>
       </div>
 
-      <div class="timeline">
+      <div class="timeline" id="eventsTimeline">
         <div class="timeline-progress-bar" id="timelineProgressBar"></div>
-
-        <div class="timeline-container left">
-          <div class="timeline-content">
-            <div class="timeline-date">June 2026</div>
-            <h3 class="timeline-title">CodeStorm Hackathon</h3>
-            <div class="timeline-location">
-              <span><i class="fa-solid fa-map-pin"></i></span> ThoughtWorks Technologies, Gurugram
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-container right">
-          <div class="timeline-content">
-            <div class="timeline-date">May 2026</div>
-            <h3 class="timeline-title">AI Spark</h3>
-            <div class="timeline-location">
-              <span><i class="fa-solid fa-map-pin"></i></span> GFG Noida
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-container left">
-          <div class="timeline-content">
-            <div class="timeline-date">April 2026</div>
-            <h3 class="timeline-title">GitHub Copilot Dev Days</h3>
-            <div class="timeline-location">
-              <span><i class="fa-solid fa-map-pin"></i></span> GFG Noida | Meerut
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-container right">
-          <div class="timeline-content">
-            <div class="timeline-date">April 2026</div>
-            <h3 class="timeline-title">Salesforce AI Workshop</h3>
-            <div class="timeline-location">
-              <span><i class="fa-solid fa-map-pin"></i></span> Tech4Hack Community
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-container left">
-          <div class="timeline-content">
-            <div class="timeline-date">April 2026</div>
-            <h3 class="timeline-title">HackFest 2026</h3>
-            <div class="timeline-location">
-              <span><i class="fa-solid fa-map-pin"></i></span> Thoughtworks Office, Gurugram
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-container right">
-          <div class="timeline-content">
-            <div class="timeline-date">March 2026</div>
-            <h3 class="timeline-title">Developer Meetup</h3>
-            <div class="timeline-location">
-              <span><i class="fa-solid fa-map-pin"></i></span> Thoughtworks Office, Gurugram
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-container left hidden-event">
-          <div class="timeline-content">
-            <div class="timeline-date">January 2026</div>
-            <h3 class="timeline-title">AI for All</h3>
-            <div class="timeline-location">
-              <span><i class="fa-solid fa-map-pin"></i></span> Microsoft Office, Gurugram
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-container right hidden-event">
-          <div class="timeline-content">
-            <div class="timeline-date">December 2025</div>
-            <h3 class="timeline-title">AI Fusion</h3>
-            <div class="timeline-location">
-              <span><i class="fa-solid fa-map-pin"></i></span> Thoughtworks Office, Gurugram
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-container left hidden-event">
-          <div class="timeline-content">
-            <div class="timeline-date">September 2025</div>
-            <h3 class="timeline-title">TechSangam 2.0</h3>
-            <div class="timeline-location">
-              <span><i class="fa-solid fa-map-pin"></i></span> Microsoft Office, Noida
-            </div>
-          </div>
+        <!-- Events are loaded dynamically via AJAX from data/events.json -->
+        <div class="timeline-loading" id="timelineLoading" style="text-align: center; padding: 40px 20px; color: var(--muted); font-family: 'Sora', sans-serif;">
+          <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 24px; color: var(--purple); margin-bottom: 12px; display: block;"></i>
+          Loading events...
         </div>
       </div><!-- /.timeline -->
-<!-- Load-more circle button sits at the bottom of .timeline so the progress bar includes it -->
-        <div class="timeline-load-more-wrap" id="timelineLoadMoreWrap">
-          <button id="timelineLoadMore" title="Show more events">+</button>
-        </div>
+      <!-- Load-more circle button sits at the bottom of .timeline so the progress bar includes it -->
+      <div class="timeline-load-more-wrap" id="timelineLoadMoreWrap" style="display: none;">
+        <button id="timelineLoadMore" title="Show more events">+</button>
+      </div>
     </div><!-- /.container -->
   </section>
 
@@ -2916,36 +2831,201 @@
       document.getElementById('quoteRole').textContent = q.role;
     })();
 
-    // ── Timeline Load-More Circle ──
+    // ── Timeline: AJAX Event Loader & Load-More Handler ──
     (function () {
-      const loadMoreBtn  = document.getElementById('timelineLoadMore');
+      const timeline = document.querySelector('.timeline');
+      const loadMoreBtn = document.getElementById('timelineLoadMore');
       const loadMoreWrap = document.getElementById('timelineLoadMoreWrap');
-      const hiddenEvents = Array.from(document.querySelectorAll('.timeline-container.hidden-event'));
 
-      if (!loadMoreBtn || hiddenEvents.length === 0) return;
+      if (!timeline) return;
 
-      loadMoreBtn.addEventListener('click', function () {
-        // Stagger-reveal each hidden event
-        hiddenEvents.forEach(function (el, i) {
-          setTimeout(function () {
-            el.classList.add('revealing');   // triggers CSS animation
-            el.classList.remove('hidden-event');
-            // after animation ends, clean up the helper class
-            el.addEventListener('animationend', function () {
-              el.classList.remove('revealing');
-            }, { once: true });
-          }, i * 120); // 120 ms stagger between items
+      // Fallback events data in case of file:// protocol CORS restrictions
+      const defaultEvents = [
+        { "id": 1, "date": "September 2026", "title": "TechSangam 3.0", "location": "Thoughtworks Office, Gurugram", "side": "left" },
+        { "id": 2, "date": "September 2026", "title": "Hack & Build 2026", "location": "Nagarro Office, Gurugram", "side": "right" },
+        { "id": 3, "date": "August 2026", "title": "Buildathon 2026", "location": "Thoughtworks Office, Gurugram", "side": "left" },
+        { "id": 4, "date": "June 2026", "title": "CodeStorm Hackathon", "location": "ThoughtWorks Technologies, Gurugram", "side": "right" },
+        { "id": 5, "date": "May 2026", "title": "AI Spark", "location": "GFG Noida", "side": "left" },
+        { "id": 6, "date": "April 2026", "title": "GitHub Copilot Dev Days", "location": "GFG Noida | Meerut", "side": "right" },
+        { "id": 7, "date": "April 2026", "title": "Salesforce AI Workshop", "location": "Tech4Hack Community", "side": "left" },
+        { "id": 8, "date": "April 2026", "title": "HackFest 2026", "location": "Thoughtworks Office, Gurugram", "side": "right" },
+        { "id": 9, "date": "March 2026", "title": "Developer Meetup", "location": "Thoughtworks Office, Gurugram", "side": "left" },
+        { "id": 10, "date": "January 2026", "title": "AI for All", "location": "Microsoft Office, Gurugram", "side": "right" },
+        { "id": 11, "date": "December 2025", "title": "AI Fusion", "location": "Thoughtworks Office, Gurugram", "side": "left" },
+        { "id": 12, "date": "September 2025", "title": "TechSangam 2.0", "location": "Microsoft Office, Noida", "side": "right" }
+      ];
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      // Parse dates such as "September 2026", "Sep 2026", "2026-09-01", etc.
+      function parseEventDate(dateStr) {
+        if (!dateStr) return 0;
+        const nativeParsed = Date.parse(dateStr);
+        if (!isNaN(nativeParsed)) return nativeParsed;
+
+        const months = {
+          jan: 0, january: 0,
+          feb: 1, february: 1,
+          mar: 2, march: 2,
+          apr: 3, april: 3,
+          may: 4,
+          jun: 5, june: 5,
+          jul: 6, july: 6,
+          aug: 7, august: 7,
+          sep: 8, sept: 8, september: 8,
+          oct: 9, october: 9,
+          nov: 10, november: 10,
+          dec: 11, december: 11
+        };
+
+        const parts = String(dateStr).trim().toLowerCase().split(/[\s,.-]+/);
+        let month = -1, year = -1, day = 1;
+        for (const p of parts) {
+          if (months[p] !== undefined) {
+            month = months[p];
+          } else if (/^\d{4}$/.test(p)) {
+            year = parseInt(p, 10);
+          } else if (/^\d{1,2}$/.test(p)) {
+            day = parseInt(p, 10);
+          }
+        }
+        if (year !== -1 && month !== -1) {
+          return new Date(year, month, day).getTime();
+        }
+        return 0;
+      }
+
+      function renderTimeline(events) {
+        // Remove existing container nodes or loading placeholder, keeping #timelineProgressBar
+        const existingNodes = timeline.querySelectorAll('.timeline-container, .timeline-loading');
+        existingNodes.forEach(function (node) { node.remove(); });
+
+        if (!Array.isArray(events) || events.length === 0) {
+          const emptyDiv = document.createElement('div');
+          emptyDiv.className = 'timeline-loading';
+          emptyDiv.style.cssText = 'text-align: center; padding: 40px 20px; color: var(--muted); font-family: "Sora", sans-serif;';
+          emptyDiv.textContent = 'No events found.';
+          timeline.appendChild(emptyDiv);
+          if (loadMoreWrap) loadMoreWrap.style.display = 'none';
+          return;
+        }
+
+        // Automatically sort events from most recent (newest) to oldest
+        const sortedEvents = events.slice().sort(function (a, b) {
+          return parseEventDate(b.date) - parseEventDate(a.date);
         });
 
-        // Fade + shrink the button, then hide the wrapper
-        loadMoreBtn.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
-        loadMoreBtn.style.opacity    = '0';
-        loadMoreBtn.style.transform  = 'scale(0.6)';
-        setTimeout(function () {
-          loadMoreWrap.style.display = 'none';
-          // Re-run scroll handler so new nodes get active-node treatment
-          window.dispatchEvent(new Event('scroll'));
-        }, 380);
+        // Render each event dynamically from JSON
+        sortedEvents.forEach(function (evt, index) {
+          // Dynamic alternating left and right maintains visual timeline symmetry
+          const side = (index % 2 === 0) ? 'left' : 'right';
+          const isHidden = (evt.hidden !== undefined) ? evt.hidden : (index >= 6);
+
+          const container = document.createElement('div');
+          container.className = 'timeline-container ' + side + (isHidden ? ' hidden-event' : '');
+
+          const content = document.createElement('div');
+          content.className = 'timeline-content';
+
+          const date = document.createElement('div');
+          date.className = 'timeline-date';
+          date.textContent = evt.date || '';
+
+          const title = document.createElement('h3');
+          title.className = 'timeline-title';
+          title.textContent = evt.title || '';
+
+          const location = document.createElement('div');
+          location.className = 'timeline-location';
+          location.innerHTML = '<span><i class="fa-solid fa-map-pin"></i></span> ' + escapeHtml(evt.location || '');
+
+          content.appendChild(date);
+          content.appendChild(title);
+          content.appendChild(location);
+          container.appendChild(content);
+          timeline.appendChild(container);
+        });
+
+        // Setup Load More circle button
+        const hiddenEvents = Array.from(timeline.querySelectorAll('.timeline-container.hidden-event'));
+        if (loadMoreWrap && loadMoreBtn) {
+          if (hiddenEvents.length > 0) {
+            loadMoreWrap.style.display = 'flex';
+            loadMoreBtn.style.opacity = '1';
+            loadMoreBtn.style.transform = 'scale(1)';
+
+            loadMoreBtn.onclick = function () {
+              const currentHidden = Array.from(timeline.querySelectorAll('.timeline-container.hidden-event'));
+              currentHidden.forEach(function (el, i) {
+                setTimeout(function () {
+                  el.classList.add('revealing');
+                  el.classList.remove('hidden-event');
+                  el.addEventListener('animationend', function () {
+                    el.classList.remove('revealing');
+                  }, { once: true });
+                }, i * 120);
+              });
+
+              loadMoreBtn.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+              loadMoreBtn.style.opacity = '0';
+              loadMoreBtn.style.transform = 'scale(0.6)';
+              setTimeout(function () {
+                loadMoreWrap.style.display = 'none';
+                window.dispatchEvent(new Event('scroll'));
+              }, 380);
+            };
+          } else {
+            loadMoreWrap.style.display = 'none';
+          }
+        }
+
+        // Trigger scroll update to immediately adjust progress and active-node highlighting
+        window.dispatchEvent(new Event('scroll'));
+      }
+
+      // Classic AJAX (XMLHttpRequest) implementation
+      function loadEventsViaAJAX(url, onSuccess, onError) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.setRequestHeader('Accept', 'application/json');
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if ((xhr.status >= 200 && xhr.status < 300) || (xhr.status === 0 && xhr.responseText)) {
+              try {
+                const data = JSON.parse(xhr.responseText);
+                onSuccess(data);
+              } catch (e) {
+                if (onError) onError(e);
+              }
+            } else {
+              if (onError) onError(new Error('HTTP Status ' + xhr.status));
+            }
+          }
+        };
+        xhr.onerror = function () {
+          if (onError) onError(new Error('Network or CORS error'));
+        };
+        xhr.send();
+      }
+
+      // Execute AJAX: try 'data/events.json', fallback to 'events.json', or default dataset
+      loadEventsViaAJAX('data/events.json', function (events) {
+        renderTimeline(events);
+      }, function () {
+        loadEventsViaAJAX('events.json', function (events) {
+          renderTimeline(events);
+        }, function (err2) {
+          console.warn('AJAX request failed (likely file:// protocol without local server). Rendering fallback events:', err2);
+          renderTimeline(defaultEvents);
+        });
       });
     })();
 

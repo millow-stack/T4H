@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "date": "September 2026",
+    "title": "TechSangam 3.0",
+    "location": "Thoughtworks Office, Gurugram",
+    "side": "left"
+  },
+  {
+    "id": 2,
+    "date": "September 2026",
+    "title": "Hack & Build 2026",
+    "location": "Nagarro Office, Gurugram",
+    "side": "right"
+  },
+  {
+    "id": 3,
+    "date": "August 2026",
+    "title": "Buildathon 2026",
+    "location": "Thoughtworks Office, Gurugram",
+    "side": "left"
+  },
+  {
+    "id": 4,
+    "date": "June 2026",
+    "title": "CodeStorm Hackathon",
+    "location": "ThoughtWorks Technologies, Gurugram",
+    "side": "right"
+  },
+  {
+    "id": 5,
+    "date": "May 2026",
+    "title": "AI Spark",
+    "location": "GFG Noida",
+    "side": "left"
+  },
+  {
+    "id": 6,
+    "date": "April 2026",
+    "title": "GitHub Copilot Dev Days",
+    "location": "GFG Noida | Meerut",
+    "side": "right"
+  },
+  {
+    "id": 7,
+    "date": "April 2026",
+    "title": "Salesforce AI Workshop",
+    "location": "Tech4Hack Community",
+    "side": "left"
+  },
+  {
+    "id": 8,
+    "date": "April 2026",
+    "title": "HackFest 2026",
+    "location": "Thoughtworks Office, Gurugram",
+    "side": "right"
+  },
+  {
+    "id": 9,
+    "date": "March 2026",
+    "title": "Developer Meetup",
+    "location": "Thoughtworks Office, Gurugram",
+    "side": "left"
+  },
+  {
+    "id": 10,
+    "date": "January 2026",
+    "title": "AI for All",
+    "location": "Microsoft Office, Gurugram",
+    "side": "right"
+  },
+  {
+    "id": 11,
+    "date": "December 2025",
+    "title": "AI Fusion",
+    "location": "Thoughtworks Office, Gurugram",
+    "side": "left"
+  },
+  {
+    "id": 12,
+    "date": "September 2025",
+    "title": "TechSangam 2.0",
+    "location": "Microsoft Office, Noida",
+    "side": "right"
+  }
+]
