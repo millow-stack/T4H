@@ -3119,6 +3119,9 @@
             DOM.nav.classList.remove('nav-scrolled');
           }
         }
+        if (typeof MagneticEngine !== 'undefined' && MagneticEngine.onScroll) {
+          MagneticEngine.onScroll();
+        }
       }
 
       function animationLoop() {
@@ -3139,18 +3142,192 @@
         requestAnimationFrame(animationLoop);
       }
 
-      // ── 5. Navigation & Skip Controllers ──
+      // ── 5. Cinematic Magnetic Scroll Engine ──
+      const MagneticEngine = (function () {
+        // Precise center-anchors for each cinematic scene
+        const SNAPS = [
+          { id: 'hero', progress: 0.00, tolerance: 0.07 },
+          { id: 'about', progress: 0.395, tolerance: 0.055 },
+          { id: 'do', progress: 0.485, tolerance: 0.055 },
+          { id: 'why', progress: 0.575, tolerance: 0.055 },
+          { id: 'partners', progress: 0.670, tolerance: 0.055 },
+          { id: 'timeline', progress: 0.850, tolerance: 0.08 }
+        ];
+
+        let isGliding = false;
+        let glideRafId = null;
+        let idleTimer = null;
+        let lastScrollY = window.scrollY;
+        let lastScrollTime = performance.now();
+        let scrollVelocity = 0;
+        let scrollDirection = 0;
+        let isTouching = false;
+
+        function cancelGlide() {
+          if (isGliding) {
+            isGliding = false;
+            if (glideRafId) {
+              cancelAnimationFrame(glideRafId);
+              glideRafId = null;
+            }
+          }
+        }
+
+        // Premium Quartic Out curve: rapid gentle pickup with velvet magnetic lock
+        function easeOutQuart(t) {
+          return 1 - Math.pow(1 - t, 4);
+        }
+
+        function glideTo(targetProg, customDuration) {
+          if (State.isReducedMotion || !DOM.container) return;
+          cancelGlide();
+
+          const rect = DOM.container.getBoundingClientRect();
+          const containerTop = window.scrollY + rect.top;
+          const totalScrollable = DOM.container.offsetHeight - window.innerHeight;
+          if (totalScrollable <= 0) return;
+
+          const targetY = containerTop + (targetProg * totalScrollable);
+          const startY = window.scrollY;
+          const distance = targetY - startY;
+
+          if (Math.abs(distance) < 8) return;
+
+          isGliding = true;
+          const duration = customDuration || Math.min(Math.max(Math.abs(distance) * 0.38, 380), 540);
+          const startTime = performance.now();
+
+          function step(currentTime) {
+            if (!isGliding) return;
+
+            const elapsed = currentTime - startTime;
+            const t = Math.min(elapsed / duration, 1);
+            const eased = easeOutQuart(t);
+
+            window.scrollTo(0, startY + (distance * eased));
+
+            if (t < 1) {
+              glideRafId = requestAnimationFrame(step);
+            } else {
+              isGliding = false;
+              glideRafId = null;
+            }
+          }
+
+          glideRafId = requestAnimationFrame(step);
+        }
+
+        function evaluateSnap() {
+          if (State.isReducedMotion || isTouching || isGliding || !DOM.container) return;
+
+          const p = State.globalProgress;
+
+          // Free-flow: never restrict normal scrolling for content below cinematic container
+          if (p >= 0.94) return;
+
+          // If hovering near top Hero
+          if (p < 0.08) {
+            if (p > 0.015 && scrollDirection <= 0) {
+              glideTo(0.00, 380);
+            }
+            return;
+          }
+
+          let targetSnap = null;
+
+          // Directional magnetic flick vs gentle proximity snap
+          if (Math.abs(scrollVelocity) > 0.28) {
+            if (scrollDirection > 0) {
+              targetSnap = SNAPS.find(s => s.progress > p + 0.018);
+            } else {
+              const reverseSnaps = [...SNAPS].slice().reverse();
+              targetSnap = reverseSnaps.find(s => s.progress < p - 0.018);
+            }
+          } else {
+            let minDist = Infinity;
+            for (const snap of SNAPS) {
+              const dist = Math.abs(snap.progress - p);
+              if (dist < minDist) {
+                minDist = dist;
+                targetSnap = snap;
+              }
+            }
+
+            // In the box-transformation gap [0.12, 0.35], attract cleanly to Hero or About Us
+            if (p >= 0.12 && p < 0.35 && minDist > 0.08) {
+              targetSnap = scrollDirection > 0 ? SNAPS[1] : SNAPS[0];
+            }
+          }
+
+          if (targetSnap && Math.abs(targetSnap.progress - p) > 0.012) {
+            glideTo(targetSnap.progress);
+          }
+        }
+
+        function onScrollActivity() {
+          if (State.isReducedMotion) return;
+
+          const now = performance.now();
+          const curY = window.scrollY;
+          const dt = Math.max(now - lastScrollTime, 1);
+          const dy = curY - lastScrollY;
+
+          scrollVelocity = dy / dt;
+          if (Math.abs(dy) > 1) {
+            scrollDirection = dy > 0 ? 1 : -1;
+          }
+
+          lastScrollY = curY;
+          lastScrollTime = now;
+
+          if (!isGliding) {
+            clearTimeout(idleTimer);
+            // Settle timer: 180ms debounce after scrolling pauses
+            idleTimer = setTimeout(evaluateSnap, 180);
+          }
+        }
+
+        function init() {
+          window.addEventListener('wheel', () => {
+            cancelGlide();
+          }, { passive: true });
+
+          window.addEventListener('touchstart', () => {
+            cancelGlide();
+            isTouching = true;
+            clearTimeout(idleTimer);
+          }, { passive: true });
+
+          window.addEventListener('touchmove', () => {
+            cancelGlide();
+          }, { passive: true });
+
+          window.addEventListener('touchend', () => {
+            isTouching = false;
+            clearTimeout(idleTimer);
+            // Touch momentum settlement debounce
+            idleTimer = setTimeout(evaluateSnap, 140);
+          }, { passive: true });
+
+          window.addEventListener('keydown', (e) => {
+            if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Space'].includes(e.code)) {
+              cancelGlide();
+            }
+          });
+        }
+
+        return {
+          init,
+          onScroll: onScrollActivity,
+          glideTo,
+          cancelGlide
+        };
+      })();
+
+      // ── 6. Navigation & Skip Controllers ──
       function scrollToProgress(prog) {
         if (!DOM.container) return;
-        const rect = DOM.container.getBoundingClientRect();
-        const containerTop = window.scrollY + rect.top;
-        const totalScrollable = DOM.container.offsetHeight - window.innerHeight;
-        const targetY = containerTop + (prog * totalScrollable);
-
-        window.scrollTo({
-          top: targetY,
-          behavior: 'smooth'
-        });
+        MagneticEngine.glideTo(prog, 500);
       }
 
       function initNavigation() {
@@ -3159,12 +3336,12 @@
           btn.addEventListener('click', function () {
             const idx = parseInt(this.getAttribute('data-index'), 10);
             const sectionTargetProgress = [
-              RANGES.SECTION_0.start + 0.02,
-              RANGES.SECTION_1.start + 0.02,
-              RANGES.SECTION_2.start + 0.02,
-              RANGES.SECTION_3.start + 0.02
+              0.395,
+              0.485,
+              0.575,
+              0.670
             ];
-            scrollToProgress(sectionTargetProgress[idx] || 0.36);
+            scrollToProgress(sectionTargetProgress[idx] || 0.395);
           });
         });
 
@@ -3173,15 +3350,15 @@
           DOM.skipBtn.addEventListener('click', function () {
             const p = State.globalProgress;
             if (p < RANGES.SECTION_0.start) {
-              scrollToProgress(RANGES.SECTION_0.start + 0.02);
+              scrollToProgress(0.395);
             } else if (p < RANGES.SECTION_1.start) {
-              scrollToProgress(RANGES.SECTION_1.start + 0.02);
+              scrollToProgress(0.485);
             } else if (p < RANGES.SECTION_2.start) {
-              scrollToProgress(RANGES.SECTION_2.start + 0.02);
+              scrollToProgress(0.575);
             } else if (p < RANGES.SECTION_3.start) {
-              scrollToProgress(RANGES.SECTION_3.start + 0.02);
+              scrollToProgress(0.670);
             } else if (p < RANGES.TIMELINE.start) {
-              scrollToProgress(RANGES.TIMELINE.start + 0.02);
+              scrollToProgress(0.850);
             } else {
               if (DOM.container) {
                 const rect = DOM.container.getBoundingClientRect();
@@ -3198,7 +3375,7 @@
         if (DOM.exploreEventsBtn) {
           DOM.exploreEventsBtn.addEventListener('click', function (e) {
             e.preventDefault();
-            scrollToProgress(RANGES.TIMELINE.start + 0.02);
+            scrollToProgress(0.850);
           });
         }
 
@@ -3209,12 +3386,12 @@
 
             const mapToProgress = {
               'hero': 0,
-              'about': RANGES.SECTION_0.start + 0.02,
-              'do': RANGES.SECTION_1.start + 0.02,
-              'why': RANGES.SECTION_2.start + 0.02,
-              'partners': RANGES.SECTION_3.start + 0.02,
-              'events': RANGES.TIMELINE.start + 0.02,
-              'timeline': RANGES.TIMELINE.start + 0.02
+              'about': 0.395,
+              'do': 0.485,
+              'why': 0.575,
+              'partners': 0.670,
+              'events': 0.850,
+              'timeline': 0.850
             };
 
             if (mapToProgress[targetId] !== undefined) {
@@ -3343,6 +3520,7 @@
       // ── Bootstrapping ──
       initSplash();
       loadTimelineData();
+      MagneticEngine.init();
       initNavigation();
       initAuxiliaryFeatures();
 
