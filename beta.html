@@ -1,0 +1,3358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Tech4Hack – LEARN • BUILD • GROW</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Preload Critical Assets -->
+  <link rel="preload" as="image" href="images/favicon.png">
+  <link rel="preload" as="image" href="images/tech4hack_cover.jpg">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <!-- Font Awesome for professional iconography -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      /* Base Layout Tokens */
+      --bg: #070510;
+      --surface: #0e0b1d;
+      --surface-card: #15112c;
+      --border: rgba(121, 22, 205, 0.15);
+      --border-light: rgba(255, 255, 255, 0.08);
+
+      /* Branding Colors */
+      --purple: #d926b5;
+      --purple-dim: #7916cd;
+      --blue-brand: #1e12b8;
+      --accent-gradient: linear-gradient(135deg, #c084fc, #8b22e2, #1e12b8);
+
+      /* Typography & Neutrals */
+      --white: #f5f3ff;
+      --muted: #9490a8;
+
+      /* Interactive Elements */
+      --btn-bg: #8b22e2;
+      --btn-hover: #b61cd4;
+
+      /* Precise Responsive Heights */
+      --nav-height: 60px;
+    }
+
+    @media (min-width: 992px) {
+      :root {
+        --nav-height: 66px;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-height);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      line-height: 1.55;
+    }
+
+    /* ── SCROLLBAR ── */
+    html { scrollbar-width: thin; scrollbar-color: #251e3e var(--bg); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #251e3e; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--purple-dim); }
+
+    /* ── MOBILE FIRST BASE TYPOGRAPHY & UTILITIES ── */
+    .section-padding {
+      padding: 60px 20px;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 36px;
+    }
+
+    .section-title {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(24px, 5.5vw, 38px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title span {
+      background: linear-gradient(to bottom, #c084fc, #d926b5, #7916cd, #1e12b8, #6366f1, #d926b5, #c084fc);
+      background-attachment: fixed;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-subtitle {
+      font-size: clamp(14px, 3.8vw, 16px);
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .gradient-border-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      position: relative;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gradient-border-card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(139, 34, 226, 0.4), transparent, rgba(217, 38, 181, 0.4));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gradient-border-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(217, 38, 181, 0.35);
+      box-shadow: 0 8px 24px rgba(121, 22, 205, 0.16);
+    }
+
+    .gradient-border-card:hover::after {
+      opacity: 1;
+    }
+
+    /* ── BUTTONS (TOUCH FRIENDLY >= 44PX) ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: transform 0.2s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      text-decoration: none;
+      gap: 8px;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid #c084fc;
+      outline-offset: 3px;
+    }
+
+    .btn-primary {
+      background: var(--btn-bg);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 15px rgba(139, 34, 226, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      color: var(--white);
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.97);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-outline {
+      background: rgba(139, 34, 226, 0.08);
+      border: 1px solid rgba(139, 34, 226, 0.35);
+      color: #c084fc;
+    }
+
+    .btn-outline:active {
+      transform: scale(0.97);
+      background: rgba(139, 34, 226, 0.2);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── MOBILE FIRST NAVIGATION ── */
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      height: var(--nav-height);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(7, 5, 16, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+      z-index: 1000;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .site-nav.nav-scrolled {
+      background: rgba(7, 5, 16, 0.92);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      text-decoration: none;
+      min-height: 44px;
+    }
+
+    .logo-icon {
+      height: 32px;
+      width: auto;
+      border-radius: 6px;
+    }
+
+    .nav-logo-fallback {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #c084fc, #8b22e2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    /* Mobile Drawer Menu */
+    .nav-links {
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      width: 100%;
+      height: calc(100vh - var(--nav-height));
+      height: calc(100dvh - var(--nav-height));
+      background: rgba(7, 5, 16, 0.98);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 36px 24px;
+      gap: 20px;
+      list-style: none;
+      transform: translateY(-120%);
+      opacity: 0;
+      visibility: hidden;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 999;
+      overflow-y: auto;
+    }
+
+    .nav-links.active {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .nav-links li {
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+    }
+
+    .nav-links a {
+      display: block;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 600;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.2s ease;
+    }
+
+    .nav-links a:active,
+    .nav-links a.active-nav-link {
+      background: rgba(139, 34, 226, 0.15);
+      color: #c084fc;
+      border-color: rgba(192, 132, 252, 0.3);
+    }
+
+    .nav-mobile-cta {
+      display: block;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .nav-right {
+      display: none;
+    }
+
+    /* Burger Menu Touch Target */
+    .burger-menu {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      z-index: 1001;
+      background: transparent;
+      border: none;
+      padding: 6px;
+    }
+
+    .burger-menu span {
+      width: 24px;
+      height: 2.5px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .nav-menu-open .burger-menu span:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+    }
+    .nav-menu-open .burger-menu span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-menu-open .burger-menu span:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+    }
+
+    /* ── SCROLL PROGRESS BAR (TOP) ── */
+    .scroll-progress-bar {
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #c084fc, #d926b5, #1e12b8);
+      width: 0%;
+      z-index: 1000;
+      will-change: width;
+    }
+
+    /* ==========================================================================
+       CINEMATIC SCROLL EXPERIENCE — MOBILE FIRST
+       ========================================================================== */
+
+    /* ── 1. SPLASH SCREEN ── */
+    #splashScreen {
+      position: fixed;
+      inset: 0;
+      background: #070510;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top, 20px) 20px env(safe-area-inset-bottom, 20px);
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.65s ease;
+      pointer-events: all;
+    }
+
+    #splashScreen.splash-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .splash-logo-wrap {
+      position: relative;
+      width: 68px;
+      height: 68px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .splash-logo-glow {
+      position: absolute;
+      inset: -10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217, 38, 181, 0.45), rgba(139, 34, 226, 0.2), transparent 70%);
+      animation: pulseGlow 2.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(0.9); opacity: 0.5; }
+      100% { transform: scale(1.15); opacity: 1; }
+    }
+
+    .splash-logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      object-fit: contain;
+      position: relative;
+      z-index: 2;
+    }
+
+    .splash-title {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(24px, 7vw, 32px);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .splash-tagline {
+      font-family: 'Sora', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #c084fc, #d926b5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 28px;
+    }
+
+    .splash-loader {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .splash-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c084fc;
+      animation: splashBounce 1.2s ease-in-out infinite;
+    }
+
+    .splash-dot:nth-child(2) { animation-delay: 0.2s; background: #d926b5; }
+    .splash-dot:nth-child(3) { animation-delay: 0.4s; background: #8b22e2; }
+
+    @keyframes splashBounce {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40% { transform: scale(1.2); opacity: 1; }
+    }
+
+    /* ── 2. CINEMATIC SCROLL CONTAINER & VIEWPORT (MOBILE FIRST) ── */
+    #cinematicScrollContainer {
+      position: relative;
+      width: 100%;
+      height: 580vh; /* Smooth and precise mobile scroll budget */
+      background: var(--bg);
+    }
+
+    #stickyViewport {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh; /* Dynamic viewport accounts for mobile address bars */
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    #heroNetworkCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .ambient-halo {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      filter: blur(70px);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.35;
+    }
+    .ambient-halo-1 {
+      top: -60px;
+      left: -60px;
+      background: radial-gradient(circle, rgba(139, 34, 226, 0.45), transparent 70%);
+    }
+    .ambient-halo-2 {
+      bottom: -60px;
+      right: -60px;
+      background: radial-gradient(circle, rgba(217, 38, 181, 0.4), transparent 70%);
+    }
+
+    /* ── 3. HERO SCENE & BOX TRANSFORMATION (MOBILE FIRST) ── */
+    .scene-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--nav-height) + 16px) 18px 24px;
+      z-index: 2;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    .scene-layer.interactive {
+      pointer-events: all;
+    }
+
+    .hero-scene-content {
+      width: 100%;
+      max-width: 540px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-align: center;
+    }
+
+    .hero-left-text {
+      width: 100%;
+      max-width: 480px;
+      will-change: transform, opacity;
+      transition: transform 0.1s linear, opacity 0.1s linear;
+    }
+
+    .hero-tagline-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(139, 34, 226, 0.15);
+      border: 1px solid rgba(139, 34, 226, 0.35);
+      padding: 5px 14px;
+      border-radius: 100px;
+      color: #c084fc;
+      font-size: 11.5px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hero-tagline-badge span {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background-color: #d926b5;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #d926b5;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(24px, 6.2vw, 36px);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-gradient-line {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(24px, 6.2vw, 36px);
+      font-weight: 850;
+      background: linear-gradient(to bottom, #c084fc, #d926b5, #7916cd, #1e12b8, #6366f1, #d926b5, #c084fc);
+      background-attachment: fixed;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.15;
+    }
+
+    .hero-desc {
+      font-size: clamp(13.5px, 3.8vw, 15px);
+      line-height: 1.5;
+      color: var(--muted);
+      margin: 12px 0 14px;
+    }
+
+    .hero-subdesc {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #a855f7;
+      margin-bottom: 20px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .hero-ctas .btn {
+      flex: 1 1 calc(50% - 10px);
+      min-width: 130px;
+    }
+
+    /* The Hero Box (Centerpiece on mobile, side card on desktop) */
+    .hero-box-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: 100%;
+      max-width: 380px;
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+      transition: transform 0.1s linear, opacity 0.1s linear;
+      z-index: 5;
+    }
+
+    .hero-box-card {
+      background: rgba(21, 17, 44, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      border-radius: 18px;
+      padding: 20px 18px;
+      box-shadow: 0 16px 40px rgba(7, 5, 16, 0.9), 0 0 30px rgba(121, 22, 205, 0.22);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-box-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2.5px;
+      background: linear-gradient(90deg, transparent, #c084fc, #d926b5, transparent);
+    }
+
+    .hero-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .hero-box-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #c084fc;
+      background: rgba(139, 34, 226, 0.22);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(192, 132, 252, 0.3);
+    }
+
+    .hero-box-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    .hero-box-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 6px #10b981;
+    }
+
+    .stats-grid-inner {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .stat-card-mini {
+      background: rgba(14, 11, 29, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: left;
+    }
+
+    .stat-card-mini .stat-number {
+      font-family: 'Sora', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      background: linear-gradient(to bottom, #c084fc, #d926b5, #7916cd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 2px;
+    }
+
+    .stat-card-mini .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── 4. FOUR-SECTION STAGE (PRECISE MOBILE POSITIONING) ── */
+    .four-section-stage {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--nav-height) + 12px) 16px 20px;
+      padding-right: 42px; /* Reserves space so right navigator never touches content */
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .section-slide {
+      position: absolute;
+      width: 100%;
+      max-width: 520px;
+      opacity: 0;
+      transform: translateY(28px) scale(0.96);
+      transition: opacity 0.1s linear, transform 0.1s linear;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .section-slide.active-slide {
+      pointer-events: all;
+    }
+
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(139, 34, 226, 0.18);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-family: 'Sora', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #c084fc;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .slide-title {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(20px, 5.5vw, 32px);
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .slide-title span {
+      background: linear-gradient(135deg, #c084fc, #d926b5, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-subtitle {
+      font-size: clamp(12.5px, 3.4vw, 14.5px);
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 16px;
+      line-height: 1.45;
+    }
+
+    /* Slide 1: About */
+    .slide-about-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .slide-about-left {
+      background: rgba(21, 17, 44, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      backdrop-filter: blur(12px);
+      text-align: left;
+    }
+
+    .slide-about-left h4 {
+      font-family: 'Sora', sans-serif;
+      font-size: 16px;
+      color: #c084fc;
+      margin-bottom: 6px;
+    }
+
+    .slide-about-left p {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .slide-about-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .mission-vision-card {
+      background: rgba(21, 17, 44, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      backdrop-filter: blur(12px);
+      text-align: left;
+    }
+
+    .mission-vision-card h5 {
+      font-family: 'Sora', sans-serif;
+      font-size: 13.5px;
+      color: var(--white);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mission-vision-card h5 span {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #d926b5;
+    }
+
+    .mission-vision-card p {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* Slide 2: What We Do (2x2 on Mobile) */
+    .slide-do-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      width: 100%;
+    }
+
+    .slide-do-card {
+      background: rgba(21, 17, 44, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: left;
+    }
+
+    .slide-do-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(139, 34, 226, 0.18);
+      border: 1px solid rgba(139, 34, 226, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #c084fc;
+      margin-bottom: 8px;
+    }
+
+    .slide-do-card h4 {
+      font-family: 'Sora', sans-serif;
+      font-size: 13.5px;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .slide-do-card p {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* Slide 3: Why Join (Stacked Rows on Mobile) */
+    .slide-why-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .slide-why-card {
+      background: rgba(21, 17, 44, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .slide-why-icon {
+      font-size: 20px;
+      color: #c084fc;
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(139, 34, 226, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-why-card h4 {
+      font-family: 'Sora', sans-serif;
+      font-size: 13.5px;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .slide-why-card p {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    /* Slide 4: Ecosystem & Partners */
+    .slide-partners-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      width: 100%;
+      margin-bottom: 14px;
+    }
+
+    .slide-partner-pill {
+      background: rgba(21, 17, 44, 0.7);
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Sora', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .slide-partner-pill i {
+      font-size: 16px;
+      color: #c084fc;
+    }
+
+    /* ── 5. RIGHT-SIDE SECTION NAVIGATOR ── */
+    #sectionNavigator,
+    .section-navigator {
+      position: fixed;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%) translateX(16px);
+      z-index: 1200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: auto !important;
+      height: auto !important;
+      left: auto !important;
+      max-width: 48px;
+      background: rgba(14, 11, 29, 0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(192, 132, 252, 0.3);
+      border-radius: 28px;
+      padding: 12px 6px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6), 0 0 16px rgba(121, 22, 205, 0.2);
+    }
+
+    #sectionNavigator.visible,
+    .section-navigator.visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    @media (min-width: 992px) {
+      #sectionNavigator,
+      .section-navigator {
+        right: 28px;
+        padding: 14px 8px;
+        gap: 16px;
+        max-width: 52px;
+      }
+    }
+
+    .sec-nav-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.2s ease;
+    }
+
+    @media (min-width: 992px) {
+      .sec-nav-item {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    .sec-nav-item:hover,
+    .sec-nav-item:focus-visible {
+      transform: scale(1.15);
+    }
+
+    .sec-nav-dot {
+      display: block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.32);
+      border: 2px solid rgba(192, 132, 252, 0.45);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .sec-nav-item:hover .sec-nav-dot,
+    .sec-nav-item:focus-visible .sec-nav-dot {
+      background: #c084fc;
+      border-color: #fff;
+      transform: scale(1.3);
+      box-shadow: 0 0 10px rgba(192, 132, 252, 0.9);
+    }
+
+    .sec-nav-item.active .sec-nav-dot {
+      background: #d926b5;
+      border-color: #ffffff;
+      transform: scale(1.45);
+      box-shadow: 0 0 12px #d926b5, 0 0 20px rgba(217, 38, 181, 0.65);
+    }
+
+    .sec-nav-label {
+      position: absolute;
+      right: calc(100% + 12px);
+      top: 50%;
+      transform: translateY(-50%) translateX(6px);
+      background: rgba(14, 11, 29, 0.95);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      color: var(--white);
+      font-family: 'Sora', sans-serif;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 7px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    .sec-nav-label::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: 5px 0 5px 5px;
+      border-style: solid;
+      border-color: transparent transparent transparent rgba(192, 132, 252, 0.35);
+    }
+
+    .sec-nav-item:hover .sec-nav-label,
+    .sec-nav-item:focus-visible .sec-nav-label {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    /* ── 6. COMMUNITY TIMELINE SCENE (MOBILE FIRST HORIZONTAL SWIPE/SCROLL) ── */
+    .timeline-scene-stage {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: calc(var(--nav-height) + 12px) 16px 24px;
+      z-index: 4;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s linear;
+    }
+
+    .timeline-scene-stage.active-stage {
+      pointer-events: all;
+    }
+
+    .timeline-header-wrap {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .timeline-track-outer {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+      padding: 12px 0;
+      -webkit-mask: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+      mask: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    }
+
+    .timeline-track-inner {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      will-change: transform;
+      transition: transform 0.08s linear;
+      padding-left: 20px;
+    }
+
+    .timeline-event-card {
+      width: clamp(260px, 78vw, 320px);
+      flex-shrink: 0;
+      background: rgba(21, 17, 44, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 16px;
+      text-align: left;
+      opacity: 0.55;
+      transform: scale(0.96);
+      transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+    }
+
+    .timeline-event-card.active-event {
+      opacity: 1;
+      transform: scale(1.02);
+      border-color: #d926b5;
+      background: rgba(21, 17, 44, 0.92);
+      box-shadow: 0 8px 28px rgba(121, 22, 205, 0.3), 0 0 16px rgba(217, 38, 181, 0.2);
+    }
+
+    .event-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Sora', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      color: #c084fc;
+      background: rgba(139, 34, 226, 0.2);
+      border: 1px solid rgba(192, 132, 252, 0.25);
+      padding: 3px 8px;
+      border-radius: 100px;
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .timeline-event-card.active-event .event-badge {
+      background: rgba(217, 38, 181, 0.25);
+      border-color: rgba(217, 38, 181, 0.45);
+      color: #fff;
+    }
+
+    .event-date {
+      font-family: 'Sora', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #c084fc;
+      margin-bottom: 4px;
+    }
+
+    .event-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .event-location {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ── 7. GRADIENT TIMELINE PROGRESS BAR (HORIZONTAL) ── */
+    .timeline-progress-wrapper {
+      width: 100%;
+      max-width: 540px;
+      margin: 12px auto 0;
+      padding: 0 12px;
+    }
+
+    .timeline-progress-track {
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .timeline-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #1e12b8, #8b22e2, #d926b5, #c084fc);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(217, 38, 181, 0.7);
+      will-change: width;
+      transition: width 0.06s linear;
+    }
+
+    .timeline-progress-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 10.5px;
+      color: var(--muted);
+      font-family: 'Sora', sans-serif;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── 8. SKIP / NEXT FLOATING BUTTON (PRECISE SAFE-AREA PLACEMENT) ── */
+    #skipNextBtn {
+      position: fixed;
+      bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+      right: 14px;
+      z-index: 150;
+      background: rgba(14, 11, 29, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      color: var(--white);
+      padding: 8px 14px;
+      border-radius: 100px;
+      font-family: 'Sora', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 40px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 12px rgba(121, 22, 205, 0.25);
+      transition: transform 0.2s ease, background 0.25s ease, opacity 0.3s ease, visibility 0.3s ease;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #skipNextBtn:active {
+      transform: scale(0.96);
+      background: rgba(139, 34, 226, 0.4);
+    }
+
+    #skipNextBtn.skip-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(12px);
+    }
+
+    /* ==========================================================================
+       NORMAL PAGE FLOW (MOBILE FIRST)
+       ========================================================================== */
+
+    /* Quotes Section */
+    .quotes-section {
+      min-height: auto;
+      padding: 60px 16px;
+      text-align: center;
+      position: relative;
+      background-image: linear-gradient(rgba(7, 5, 16, 0.7), rgba(7, 5, 16, 0.7)), url('images/tech4hack_cover.jpg');
+      background-attachment: scroll;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      overflow: hidden;
+      box-shadow: inset 0 80px 60px -60px var(--bg),
+                  inset 0 -80px 60px -60px var(--bg);
+    }
+
+    .quotes-glass-container {
+      background: rgba(21, 17, 44, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 32px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .quote-icon {
+      font-size: 38px;
+      line-height: 1;
+      background: linear-gradient(to bottom, #c084fc, #7c3aed, #d926b5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+      font-family: Georgia, serif;
+    }
+
+    .quote-text {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(16px, 4.5vw, 22px);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--white);
+      margin: 0 auto 12px;
+    }
+
+    .quote-author {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #c084fc;
+    }
+
+    .quote-role {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* Partners Marquee */
+    .partners-grid-section {
+      background: var(--bg);
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      padding: 60px 16px;
+    }
+
+    .partners-marquee-wrapper {
+      overflow: hidden;
+      margin-bottom: 36px;
+      -webkit-mask: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+      mask: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+      padding: 6px 0;
+    }
+
+    .partners-marquee-track {
+      display: flex;
+      gap: 14px;
+      width: max-content;
+      animation: partners-scroll 28s linear infinite;
+    }
+
+    @keyframes partners-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .partner-logo-card {
+      width: 180px;
+      height: 68px;
+      flex-shrink: 0;
+      background: rgba(21, 17, 44, 0.5);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      color: var(--white);
+      font-size: 13.5px;
+    }
+
+    /* Testimonials */
+    .testimonials-section {
+      background: var(--bg);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .testimonial-card {
+      padding: 24px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-quote-mark {
+      position: absolute;
+      top: 14px;
+      right: 20px;
+      font-size: 60px;
+      color: rgba(139, 34, 226, 0.08);
+      font-family: Georgia, serif;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .testimonial-quote {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--white);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .testimonial-divider {
+      width: 24px;
+      height: 2.5px;
+      background: var(--purple);
+      margin-bottom: 14px;
+    }
+
+    .testimonial-author {
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .testimonial-role {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* Join Section */
+    .join-section {
+      background: linear-gradient(to bottom, var(--bg), var(--surface) 150px, var(--surface) calc(100% - 150px), var(--bg));
+    }
+
+    .join-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .join-card {
+      padding: 28px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .join-card-icon {
+      font-size: 32px;
+      margin-bottom: 14px;
+      color: #c084fc;
+    }
+
+    .join-card-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--white);
+    }
+
+    .join-card-desc {
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .join-card .btn {
+      width: 100%;
+      max-width: 260px;
+    }
+
+    /* Contact Us */
+    .contact-section {
+      background: var(--bg);
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .contact-left h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+
+    .contact-left p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-method-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface);
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+      text-decoration: none;
+      min-height: 54px;
+    }
+
+    .contact-method-icon {
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      color: #c084fc;
+    }
+
+    .contact-method-details h4 {
+      font-family: 'Sora', sans-serif;
+      font-size: 13.5px;
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .contact-method-details p {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin: 0;
+      word-break: break-all;
+    }
+
+    .contact-social-card {
+      padding: 28px 20px;
+      background: var(--surface);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .contact-social-card h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .contact-social-card p {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .contact-social-card .btn {
+      width: 100%;
+      max-width: 260px;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(to bottom, var(--bg), #04030a 70px);
+      padding: 48px 20px calc(36px + env(safe-area-inset-bottom, 0px));
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      text-align: center;
+    }
+
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 12px;
+    }
+
+    .footer-desc {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 440px;
+      margin: 0 auto 24px;
+      line-height: 1.5;
+    }
+
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .footer-social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-light);
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border-light);
+      margin: 0 auto 20px;
+    }
+
+    .footer-bottom {
+      font-size: 12px;
+      color: #625e7c;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Sponsorship Modal */
+    .sponsor-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(4, 3, 10, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .sponsor-modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .sponsor-modal {
+      background: linear-gradient(135deg, rgba(21, 17, 44, 0.98) 0%, rgba(10, 7, 25, 0.98) 100%);
+      border: 1px solid rgba(192, 132, 252, 0.25);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 580px;
+      max-height: 88vh;
+      max-height: 88dvh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 20px 60px rgba(4, 3, 10, 0.85);
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .sponsor-modal-overlay.open .sponsor-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .sponsor-modal-header {
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+    }
+
+    .sponsor-modal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(139,34,226,0.15);
+      border: 1px solid rgba(192,132,252,0.25);
+      color: #c084fc;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+
+    .sponsor-modal-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .sponsor-modal-title span {
+      background: linear-gradient(to bottom, #c084fc, #d926b5, #7916cd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sponsor-modal-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .sponsor-modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .sponsor-modal-body {
+      padding: 20px 20px 28px;
+    }
+
+    .sform-group {
+      margin-bottom: 18px;
+    }
+
+    .sform-label {
+      display: block;
+      font-family: 'Sora', sans-serif;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 6px;
+    }
+
+    .sform-label .required {
+      color: #d926b5;
+      margin-left: 2px;
+    }
+
+    /* 16px font-size prevents iOS Safari from automatically zooming on input focus */
+    .sform-input,
+    .sform-select,
+    .sform-textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      padding: 12px 14px;
+      outline: none;
+    }
+
+    .sform-input:focus,
+    .sform-select:focus,
+    .sform-textarea:focus {
+      border-color: rgba(192,132,252,0.6);
+      background: rgba(139,34,226,0.08);
+    }
+
+    .sform-two-col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .sform-checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sform-check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      min-height: 44px;
+    }
+
+    .sform-check-label {
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+
+    .sform-submit {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #8b22e2 0%, #d926b5 100%);
+      border: none;
+      color: #fff;
+      font-family: 'Sora', sans-serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .sponsor-modal-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      gap: 14px;
+    }
+
+    .sponsor-modal-success.show { display: flex; }
+
+    .sform-success-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(139,34,226,0.25), rgba(217,38,181,0.25));
+      border: 2px solid rgba(192,132,252,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+
+    /* ==========================================================================
+       TABLET & DESKTOP PROGRESSIVE ENHANCEMENTS
+       ========================================================================== */
+
+    /* ── TABLET BREAKPOINT (min-width: 768px) ── */
+    @media (min-width: 768px) {
+      .section-padding { padding: 80px 32px; }
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+      .join-grid { grid-template-columns: repeat(3, 1fr); }
+      .sform-two-col { grid-template-columns: 1fr 1fr; }
+      .footer-bottom { flex-direction: row; justify-content: space-between; }
+
+      .slide-about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; }
+      .slide-about-right { display: flex; flex-direction: column; }
+      .slide-why-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+      .slide-why-card { flex-direction: column; text-align: center; }
+      .slide-partners-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    /* ── DESKTOP BREAKPOINT (min-width: 992px) ── */
+    @media (min-width: 992px) {
+      .site-nav { padding: 0 48px; }
+      .burger-menu { display: none; }
+      .nav-links {
+        position: static;
+        height: auto;
+        width: auto;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        flex-direction: row;
+        padding: 0;
+        gap: 32px;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        overflow: visible;
+      }
+      .nav-links li { width: auto; max-width: none; }
+      .nav-links a {
+        font-size: 14.5px;
+        font-weight: 500;
+        opacity: 0.8;
+        padding: 0;
+        border-bottom: none;
+        border-radius: 0;
+      }
+      .nav-links a:hover, .nav-links a.active-nav-link {
+        opacity: 1;
+        background: transparent;
+      }
+      .nav-mobile-cta { display: none; }
+      .nav-right { display: flex; }
+
+      /* Hero Scene desktop grid layout */
+      .hero-scene-content {
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        text-align: left;
+        align-items: center;
+        gap: 50px;
+        position: static;
+      }
+      .hero-left-text { text-align: left; max-width: 600px; }
+      .hero-ctas { justify-content: flex-start; }
+      .hero-ctas .btn { flex: initial; min-width: auto; }
+
+      .hero-box-container {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: none;
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      /* Desktop four sections stage */
+      .four-section-stage {
+        padding: 70px 60px 40px;
+        padding-right: 60px;
+      }
+      .section-slide { max-width: 1100px; }
+      .slide-do-grid { grid-template-columns: repeat(4, 1fr); }
+
+      .contact-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ── ACCESSIBILITY: PREFERS REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      #cinematicScrollContainer { height: auto !important; }
+      #stickyViewport {
+        position: relative !important;
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+      }
+      .scene-layer {
+        position: relative !important;
+        height: auto !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: all !important;
+        padding: 60px 20px !important;
+      }
+      .hero-box-container {
+        position: relative !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: all !important;
+        margin-top: 24px !important;
+      }
+      .four-section-stage {
+        position: relative !important;
+        height: auto !important;
+        display: block !important;
+        padding: 40px 20px !important;
+      }
+      .section-slide {
+        position: relative !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: all !important;
+        margin-bottom: 48px !important;
+      }
+      .timeline-scene-stage {
+        position: relative !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: all !important;
+        padding: 40px 20px !important;
+      }
+      .timeline-track-inner {
+        transform: none !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+      }
+      .timeline-event-card {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      #sectionNavigator,
+      #skipNextBtn,
+      #splashScreen {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── 1. SPLASH SCREEN ── -->
+  <aside id="splashScreen" role="dialog" aria-label="Loading Tech4Hack experience" aria-live="polite">
+    <div class="splash-content">
+      <div class="splash-logo-wrap">
+        <div class="splash-logo-glow" aria-hidden="true"></div>
+        <img src="images/favicon.png" alt="Tech4Hack logo" class="splash-logo" onerror="this.style.display='none'; document.getElementById('splashFallbackIcon').style.display='flex';">
+        <div id="splashFallbackIcon" class="nav-logo-fallback" style="display: none; width: 54px; height: 54px; font-size: 22px;">T4H</div>
+      </div>
+      <h1 class="splash-title">TECH4HACK</h1>
+      <div class="splash-tagline">LEARN • BUILD • GROW</div>
+      <div class="splash-loader" aria-label="Loading content">
+        <span class="splash-dot"></span>
+        <span class="splash-dot"></span>
+        <span class="splash-dot"></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── GLOBAL NAVIGATION ── -->
+  <nav class="site-nav" id="topNav" aria-label="Main Navigation">
+    <a href="#" class="nav-logo">
+      <img src="images/favicon.png" alt="logo" class="logo-icon" onerror="this.style.display='none'; document.getElementById('navFallbackIcon').style.display='flex';">
+      <div id="navFallbackIcon" class="nav-logo-fallback" style="display: none;">T4H</div>
+      TECH4HACK
+    </a>
+
+    <ul class="nav-links" id="navLinksList">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#do">What We Do</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#partners">Partners</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li class="nav-mobile-cta">
+        <a href="https://linktr.ee/tech4hack" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">Join Community</a>
+      </li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="https://linktr.ee/tech4hack" target="_blank" rel="noopener" class="btn btn-outline" style="padding: 8px 18px; font-size: 13.5px; min-height: 38px;">
+        Join Us
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 2px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </a>
+    </div>
+
+    <button class="burger-menu" id="burgerMenu" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinksList">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <div id="scrollProgress" class="scroll-progress-bar" aria-hidden="true"></div>
+
+  <!-- ── RIGHT-SIDE SECTION NAVIGATOR ── -->
+  <aside id="sectionNavigator" class="section-navigator" role="tablist" aria-label="Cinematic Sections Navigator">
+    <button class="sec-nav-item" role="tab" aria-selected="false" data-index="0" aria-label="Section: About Us">
+      <span class="sec-nav-label">About Us</span>
+      <span class="sec-nav-dot"></span>
+    </button>
+    <button class="sec-nav-item" role="tab" aria-selected="false" data-index="1" aria-label="Section: What We Do">
+      <span class="sec-nav-label">What We Do</span>
+      <span class="sec-nav-dot"></span>
+    </button>
+    <button class="sec-nav-item" role="tab" aria-selected="false" data-index="2" aria-label="Section: Why Join">
+      <span class="sec-nav-label">Why Join</span>
+      <span class="sec-nav-dot"></span>
+    </button>
+    <button class="sec-nav-item" role="tab" aria-selected="false" data-index="3" aria-label="Section: Partners">
+      <span class="sec-nav-label">Partners</span>
+      <span class="sec-nav-dot"></span>
+    </button>
+  </aside>
+
+  <!-- ── 2. CINEMATIC SCROLL-DRIVEN CONTAINER ── -->
+  <main id="cinematicScrollContainer">
+    <div id="stickyViewport">
+      <!-- Network canvas & Ambient halos -->
+      <canvas id="heroNetworkCanvas" aria-hidden="true"></canvas>
+      <div class="ambient-halo ambient-halo-1" aria-hidden="true"></div>
+      <div class="ambient-halo ambient-halo-2" aria-hidden="true"></div>
+
+      <!-- SCENE A: HERO & BOX TRANSFORMATION LAYER -->
+      <div class="scene-layer interactive" id="heroSceneLayer">
+        <div class="hero-scene-content" id="heroContent">
+          <!-- Left Hero Text -->
+          <div class="hero-left-text" id="heroLeftText">
+            <div class="hero-tagline-badge">
+              <span></span>
+              Learn • Build • Grow
+            </div>
+            <h1 class="hero-eyebrow">Building the Future</h1>
+            <div class="hero-gradient-line">Through Innovation &amp;</div>
+            <h2 class="hero-eyebrow" style="margin-bottom: 12px;">Hands-On Learning.</h2>
+            <p class="hero-desc">
+              Join a vibrant community of developers, designers, and innovators building groundbreaking solutions together.
+            </p>
+            <p class="hero-subdesc">
+              15,000+ active builders shaping tomorrow's digital world.
+            </p>
+            <div class="hero-ctas">
+              <a href="https://linktr.ee/tech4hack" target="_blank" rel="noopener" class="btn btn-primary">Join Community</a>
+              <a href="#events" class="btn btn-outline" id="exploreEventsBtn">Explore Events</a>
+            </div>
+          </div>
+
+          <!-- Right Hero Box (Transforms upon scroll) -->
+          <div class="hero-box-container" id="heroBoxContainer">
+            <div class="hero-box-card">
+              <div class="hero-box-header">
+                <span class="hero-box-badge">Community Impact</span>
+                <div class="hero-box-status">
+                  <span class="hero-box-status-dot"></span> Live Network
+                </div>
+              </div>
+              <div class="stats-grid-inner">
+                <div class="stat-card-mini">
+                  <div class="stat-number">15k+</div>
+                  <div class="stat-label">Active Members</div>
+                </div>
+                <div class="stat-card-mini">
+                  <div class="stat-number">15+</div>
+                  <div class="stat-label">Projects Built</div>
+                </div>
+                <div class="stat-card-mini">
+                  <div class="stat-number">10+</div>
+                  <div class="stat-label">Hackathons</div>
+                </div>
+                <div class="stat-card-mini">
+                  <div class="stat-number">30k+</div>
+                  <div class="stat-label">Global Reach</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE B: FOUR-SECTION TRANSITION STAGE -->
+      <div class="four-section-stage" id="fourSectionStage" aria-live="polite">
+        <!-- Section Slide 1: About Us -->
+        <article class="section-slide" id="sectionSlide0" data-section="about">
+          <div class="slide-badge"><i class="fa-solid fa-users"></i> Discover Us</div>
+          <h2 class="slide-title">About <span>Tech4Hack</span></h2>
+          <p class="slide-subtitle">Fostering innovation, collaboration, and practical learning to empower builders.</p>
+          <div class="slide-about-grid">
+            <div class="slide-about-left">
+              <h4>Who We Are</h4>
+              <p>We're more than just a tech group. We're a movement dedicated to empowering builders and solving real-world challenges together.</p>
+            </div>
+            <div class="slide-about-right">
+              <div class="mission-vision-card">
+                <h5><span></span> Mission</h5>
+                <p>Creating inclusive spaces where minds collaborate to build meaningful technology.</p>
+              </div>
+              <div class="mission-vision-card">
+                <h5><span></span> Vision</h5>
+                <p>Nurturing the world's most vibrant community of future technical leaders.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section Slide 2: What We Do -->
+        <article class="section-slide" id="sectionSlide1" data-section="do">
+          <div class="slide-badge"><i class="fa-solid fa-bolt"></i> Core Initiatives</div>
+          <h2 class="slide-title">What We <span>Do</span></h2>
+          <p class="slide-subtitle">Bridging the gap between conceptual theory and tangible engineering.</p>
+          <div class="slide-do-grid">
+            <div class="slide-do-card">
+              <div class="slide-do-icon"><i class="fa-solid fa-rocket"></i></div>
+              <h4>Hackathons</h4>
+              <p>Challenge-driven innovation solving real problem statements.</p>
+            </div>
+            <div class="slide-do-card">
+              <div class="slide-do-icon"><i class="fa-solid fa-bullseye"></i></div>
+              <h4>Workshops</h4>
+              <p>Hands-on sessions on AI, Cloud, and system design.</p>
+            </div>
+            <div class="slide-do-card">
+              <div class="slide-do-icon"><i class="fa-solid fa-handshake"></i></div>
+              <h4>Meetups</h4>
+              <p>High-energy networking uniting engineers and founders.</p>
+            </div>
+            <div class="slide-do-card">
+              <div class="slide-do-icon"><i class="fa-solid fa-lightbulb"></i></div>
+              <h4>Live Projects</h4>
+              <p>Open-source collaborative codebases for real proof.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section Slide 3: Why Join -->
+        <article class="section-slide" id="sectionSlide2" data-section="why">
+          <div class="slide-badge"><i class="fa-solid fa-star"></i> Member Value</div>
+          <h2 class="slide-title">Why Join <span>Tech4Hack?</span></h2>
+          <p class="slide-subtitle">Accelerate your skills and professional network with our global ecosystem.</p>
+          <div class="slide-why-grid">
+            <div class="slide-why-card">
+              <div class="slide-why-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+              <div>
+                <h4>Learn by Building</h4>
+                <p>Practical experience through hackathons and reviews.</p>
+              </div>
+            </div>
+            <div class="slide-why-card">
+              <div class="slide-why-icon"><i class="fa-solid fa-building"></i></div>
+              <div>
+                <h4>Industry Mentors</h4>
+                <p>Access engineers from Microsoft, Adobe, and Google.</p>
+              </div>
+            </div>
+            <div class="slide-why-card">
+              <div class="slide-why-icon"><i class="fa-solid fa-trophy"></i></div>
+              <div>
+                <h4>Career Opportunities</h4>
+                <p>Exclusive internships, prize tracks, and sponsorships.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section Slide 4: Ecosystem & Partners -->
+        <article class="section-slide" id="sectionSlide3" data-section="partners">
+          <div class="slide-badge"><i class="fa-solid fa-globe"></i> Ecosystem</div>
+          <h2 class="slide-title">Partners &amp; <span>Sponsors</span></h2>
+          <p class="slide-subtitle">Collaborated with world-class engineering teams and communities.</p>
+          <div class="slide-partners-grid">
+            <div class="slide-partner-pill"><i class="fa-brands fa-microsoft"></i> Microsoft</div>
+            <div class="slide-partner-pill"><i class="fa-brands fa-github"></i> GitHub</div>
+            <div class="slide-partner-pill"><i class="fa-brands fa-aws"></i> Azure Dev</div>
+            <div class="slide-partner-pill"><i class="fa-solid fa-bolt"></i> Red Bull</div>
+            <div class="slide-partner-pill"><i class="fa-solid fa-award"></i> Unstop</div>
+            <div class="slide-partner-pill"><i class="fa-solid fa-certificate"></i> TruScholar</div>
+            <div class="slide-partner-pill"><i class="fa-solid fa-brain"></i> Reskilll</div>
+            <div class="slide-partner-pill"><i class="fa-solid fa-code"></i> ID8NXT</div>
+          </div>
+          <button id="cinematicSponsorBtn" class="btn btn-primary" style="margin-top: 6px;">Become a Sponsor</button>
+        </article>
+      </div>
+
+      <!-- SCENE C: COMMUNITY TIMELINE STAGE -->
+      <section class="timeline-scene-stage" id="timelineSceneStage" aria-label="Community Timeline">
+        <div class="timeline-header-wrap">
+          <div class="slide-badge"><i class="fa-solid fa-timeline"></i> Milestones</div>
+          <h2 class="slide-title">Community <span>Journey</span></h2>
+          <p class="slide-subtitle" style="margin-bottom: 0;">Scroll through our hackathons and summit events.</p>
+        </div>
+
+        <!-- Horizontal scroll-driven card track -->
+        <div class="timeline-track-outer" id="timelineTrackOuter">
+          <div class="timeline-track-inner" id="timelineTrackInner">
+            <!-- Rendered dynamically by dataset -->
+          </div>
+        </div>
+
+        <!-- Horizontal Gradient Progress Bar -->
+        <div class="timeline-progress-wrapper">
+          <div class="timeline-progress-track">
+            <div class="timeline-progress-fill" id="timelineProgressFill"></div>
+          </div>
+          <div class="timeline-progress-labels">
+            <span>2025 Genesis</span>
+            <span id="timelineActiveLabel">Active Milestone</span>
+            <span>2026 Present</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── FLOATING SKIP / NEXT SECTION CONTROL ── -->
+      <button id="skipNextBtn" aria-label="Skip to next scene">
+        <span id="skipLabel">Next Section</span>
+        <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
+      </button>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       NORMAL PAGE FLOW (TESTIMONIALS, QUOTE, JOIN, CONTACT, FOOTER)
+       ========================================================================== -->
+
+  <!-- QUOTE -->
+  <section class="quotes-section" id="quoteSection">
+    <div class="quotes-glass-container">
+      <div class="quote-content">
+        <div class="quote-icon">“</div>
+        <p class="quote-text" id="quoteText">...</p>
+        <div class="quote-author" id="quoteAuthor"></div>
+        <div class="quote-role" id="quoteRole"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS MARQUEE SECTION -->
+  <section id="partners-marquee" class="partners-grid-section section-padding reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Partners &amp; <span>Sponsors</span></h2>
+        <p class="section-subtitle">Collaborated with leading organizations and communities.</p>
+      </div>
+
+      <div class="partners-marquee-wrapper">
+        <div class="partners-marquee-track">
+          <!-- Set 1 -->
+          <div class="partner-logo-card">
+            <i class="fa-brands fa-microsoft" style="font-size: 20px; color: #00a4ef;"></i>
+            <span>Microsoft</span>
+          </div>
+          <div class="partner-logo-card">
+            <i class="fa-brands fa-github" style="font-size: 20px; color: #fff;"></i>
+            <span>GitHub</span>
+          </div>
+          <div class="partner-logo-card">
+            <i class="fa-brands fa-aws" style="font-size: 20px; color: #ff9900;"></i>
+            <span>Azure Dev</span>
+          </div>
+          <div class="partner-logo-card">
+            <i class="fa-solid fa-bolt" style="font-size: 20px; color: #d926b5;"></i>
+            <span>Red Bull</span>
+          </div>
+          <div class="partner-logo-card">
+            <i class="fa-solid fa-award" style="font-size: 20px; color: #c084fc;"></i>
+            <span>Unstop</span>
+          </div>
+          <div class="partner-logo-card">
+            <i class="fa-solid fa-certificate" style="font-size: 20px; color: #8b22e2;"></i>
+            <span>TruScholar</span>
+          </div>
+          <!-- Set 2 for seamless loop -->
+          <div class="partner-logo-card">
+            <i class="fa-brands fa-microsoft" style="font-size: 20px; color: #00a4ef;"></i>
+            <span>Microsoft</span>
+          </div>
+          <div class="partner-logo-card">
+            <i class="fa-brands fa-github" style="font-size: 20px; color: #fff;"></i>
+            <span>GitHub</span>
+          </div>
+          <div class="partner-logo-card">
+            <i class="fa-brands fa-aws" style="font-size: 20px; color: #ff9900;"></i>
+            <span>Azure Dev</span>
+          </div>
+          <div class="partner-logo-card">
+            <i class="fa-solid fa-bolt" style="font-size: 20px; color: #d926b5;"></i>
+            <span>Red Bull</span>
+          </div>
+          <div class="partner-logo-card">
+            <i class="fa-solid fa-award" style="font-size: 20px; color: #c084fc;"></i>
+            <span>Unstop</span>
+          </div>
+          <div class="partner-logo-card">
+            <i class="fa-solid fa-certificate" style="font-size: 20px; color: #8b22e2;"></i>
+            <span>TruScholar</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-subtitle" style="margin-bottom: 20px;">Interested in partnering with us? Let's build together.</p>
+      <button id="becomeSponsorBtn" class="btn btn-primary">Become a Sponsor</button>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section section-padding reveal" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What People <span>Say</span></h2>
+        <p class="section-subtitle">Real feedback from participants and mentors in our community.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card gradient-border-card">
+          <div class="testimonial-quote-mark">“</div>
+          <p class="testimonial-quote">
+            "An incredible community that bridges academic learning and industry standards. The hackathons are top-tier!"
+          </p>
+          <div class="testimonial-divider"></div>
+          <h4 class="testimonial-author">Naman Bansal</h4>
+          <p class="testimonial-role">SDE 2 MICROSOFT</p>
+        </div>
+
+        <div class="testimonial-card gradient-border-card">
+          <div class="testimonial-quote-mark">“</div>
+          <p class="testimonial-quote">
+            "The scale of collaboration and the quality of projects built by Tech4Hack members is truly inspiring."
+          </p>
+          <div class="testimonial-divider"></div>
+          <h4 class="testimonial-author">Neelu Gupta</h4>
+          <p class="testimonial-role">CS-1 ADOBE</p>
+        </div>
+
+        <div class="testimonial-card gradient-border-card">
+          <div class="testimonial-quote-mark">“</div>
+          <p class="testimonial-quote">
+            "Fostering hands-on learning is what the tech ecosystem needs. Tech4Hack delivers exactly that."
+          </p>
+          <div class="testimonial-divider"></div>
+          <h4 class="testimonial-author">Vikas Singh</h4>
+          <p class="testimonial-role">FOUNDER CODING SEEKHO</p>
+        </div>
+
+        <div class="testimonial-card gradient-border-card">
+          <div class="testimonial-quote-mark">“</div>
+          <p class="testimonial-quote">
+            "Great place to mentor passionate builders and collaborate on open-source initiatives."
+          </p>
+          <div class="testimonial-divider"></div>
+          <h4 class="testimonial-author">Anish De</h4>
+          <p class="testimonial-role">SDE GOOGLE</p>
+        </div>
+
+        <div class="testimonial-card gradient-border-card">
+          <div class="testimonial-quote-mark">“</div>
+          <p class="testimonial-quote">
+            "The focus on DevOps, Cloud, and practical architecture makes this community stand out."
+          </p>
+          <div class="testimonial-divider"></div>
+          <h4 class="testimonial-author">Deepak Sood</h4>
+          <p class="testimonial-role">DATA &amp; DEVOPS ARCHITECT</p>
+        </div>
+
+        <div class="testimonial-card gradient-border-card">
+          <div class="testimonial-quote-mark">“</div>
+          <p class="testimonial-quote">
+            "From workshops to hackathons, Tech4Hack builds the skills that actually matter in top teams."
+          </p>
+          <div class="testimonial-divider"></div>
+          <h4 class="testimonial-author">Neha Rani</h4>
+          <p class="testimonial-role">SOFTWARE ENGINEER 2 MICROSOFT</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN COMMUNITY -->
+  <section id="join" class="join-section section-padding reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Join Our <span>Community</span></h2>
+        <p class="section-subtitle">Become part of a growing network of innovators, developers, and leaders.</p>
+      </div>
+
+      <div class="join-grid">
+        <div class="join-card gradient-border-card">
+          <div class="join-card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h3 class="join-card-title">For Students</h3>
+          <p class="join-card-desc">Build practical skills, gain hackathon experience, form teams, and grow your network.</p>
+          <a href="https://linktr.ee/tech4hack" target="_blank" rel="noopener" class="btn btn-primary">Join Community</a>
+        </div>
+
+        <div class="join-card gradient-border-card">
+          <div class="join-card-icon"><i class="fa-solid fa-briefcase"></i></div>
+          <h3 class="join-card-title">For Professionals</h3>
+          <p class="join-card-desc">Mentor rising talent, review hackathon builds, and contribute to the next generation.</p>
+          <a href="https://linktr.ee/tech4hack" target="_blank" rel="noopener" class="btn btn-secondary">Get in Touch</a>
+        </div>
+
+        <div class="join-card gradient-border-card">
+          <div class="join-card-icon"><i class="fa-solid fa-building"></i></div>
+          <h3 class="join-card-title">For Organizations</h3>
+          <p class="join-card-desc">Partner with us for hackathons, promote tools, and connect with emerging engineers.</p>
+          <a href="#contact" class="btn btn-outline">Partner With Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT US -->
+  <section id="contact" class="contact-section section-padding reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Contact <span>Us</span></h2>
+        <p class="section-subtitle">Have questions or want to build together? Reach out to our core team.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-left">
+          <h3>Tech4Hack</h3>
+          <p>
+            Stay updated with upcoming events, workshops, hackathons, and community initiatives. Reach out anytime.
+          </p>
+
+          <div class="contact-methods">
+            <a href="mailto:tech4hack.community@gmail.com" class="contact-method-item">
+              <div class="contact-method-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div class="contact-method-details">
+                <h4>Email Us</h4>
+                <p>tech4hack.community@gmail.com</p>
+              </div>
+            </a>
+
+            <a href="https://linktr.ee/tech4hack" target="_blank" rel="noopener" class="contact-method-item">
+              <div class="contact-method-icon"><i class="fa-solid fa-link"></i></div>
+              <div class="contact-method-details">
+                <h4>Linktree Touchpoints</h4>
+                <p>linktr.ee/tech4hack</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-social-card gradient-border-card">
+          <div class="contact-method-icon" style="font-size: 28px; width: 60px; height: 60px; margin-bottom: 16px;"><i class="fa-solid fa-rocket"></i></div>
+          <h3>Follow Our Journey</h3>
+          <p>Don't miss announcements or upcoming open hackathons across tech hubs.</p>
+          <a href="https://linktr.ee/tech4hack" target="_blank" rel="noopener" class="btn btn-primary">Connect With Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SPONSORSHIP INTEREST FORM MODAL ── -->
+  <div class="sponsor-modal-overlay" id="sponsorModalOverlay" role="dialog" aria-modal="true" aria-labelledby="sponsorModalTitle">
+    <div class="sponsor-modal" id="sponsorModal">
+      <div class="sponsor-modal-header">
+        <button class="sponsor-modal-close" id="sponsorModalClose" aria-label="Close modal">&times;</button>
+        <div class="sponsor-modal-badge"><i class="fa-solid fa-rocket" style="margin-right: 4px;"></i> Partnership</div>
+        <h2 class="sponsor-modal-title" id="sponsorModalTitle">Sponsorship <span>Interest</span></h2>
+        <p class="sponsor-modal-desc">Partner with Tech4Hack — reach thousands of developers, students, and engineers.</p>
+      </div>
+
+      <div class="sponsor-modal-body" id="sponsorFormWrap">
+        <form id="sponsorshipForm" novalidate>
+          <div class="sform-two-col">
+            <div class="sform-group">
+              <label class="sform-label" for="sCompanyName">Company Name <span class="required">*</span></label>
+              <input class="sform-input" type="text" id="sCompanyName" name="companyName" placeholder="Company name" required>
+            </div>
+            <div class="sform-group">
+              <label class="sform-label" for="sContactName">Contact Person <span class="required">*</span></label>
+              <input class="sform-input" type="text" id="sContactName" name="contactName" placeholder="Your name" required>
+            </div>
+          </div>
+
+          <div class="sform-two-col">
+            <div class="sform-group">
+              <label class="sform-label" for="sWorkEmail">Work Email <span class="required">*</span></label>
+              <input class="sform-input" type="email" id="sWorkEmail" name="workEmail" placeholder="you@company.com" required>
+            </div>
+            <div class="sform-group">
+              <label class="sform-label" for="sWebsite">Website / LinkedIn <span class="required">*</span></label>
+              <input class="sform-input" type="url" id="sWebsite" name="website" placeholder="https://" required>
+            </div>
+          </div>
+
+          <div class="sform-group">
+            <label class="sform-label">Areas of Interest</label>
+            <div class="sform-checkbox-group">
+              <label class="sform-check-item"><input type="checkbox" name="interest" value="hackathons" checked><span class="sform-check-label">Sponsoring Hackathons</span></label>
+              <label class="sform-check-item"><input type="checkbox" name="interest" value="workshops"><span class="sform-check-label">Hosting Workshops</span></label>
+              <label class="sform-check-item"><input type="checkbox" name="interest" value="community"><span class="sform-check-label">Community Partnership</span></label>
+            </div>
+          </div>
+
+          <button type="submit" class="sform-submit">Submit Interest &rarr;</button>
+        </form>
+      </div>
+
+      <div class="sponsor-modal-success" id="sponsorSuccess">
+        <div class="sform-success-icon"><i class="fa-solid fa-check" style="color: #c084fc;"></i></div>
+        <h3 class="sform-success-title">We've got your details!</h3>
+        <p class="sform-success-desc">Thanks for your interest. Our team will reach out within 48 hours.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="footer-logo">
+      <img src="images/favicon.png" alt="logo" class="logo-icon" style="height: 28px;" onerror="this.style.display='none';">
+      TECH4HACK
+    </a>
+    <p class="footer-desc">
+      Empowering the next generation of builders through community learning, networking, and collaborative innovation.
+    </p>
+    <div class="footer-socials">
+      <a href="https://api.whatsapp.com/send?phone=449" target="_blank" rel="noopener" class="footer-social-link" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+          <path d="M12.004 2c-5.523 0-10 4.477-10 10 0 1.76.455 3.42 1.253 4.887l-1.332 4.862 4.98-1.306c1.424.776 3.036 1.207 4.75 1.207 5.522 0 10-4.477 10-10s-4.478-10-10-10zm.01 1.75c4.56 0 8.25 3.69 8.25 8.25s-3.69 8.25-8.25 8.25c-1.603 0-3.093-.456-4.364-1.246l-.313-.193-2.946.772.788-2.876-.214-.34c-.87-1.39-1.32-2.99-1.32-4.67 0-4.56 3.69-8.25 8.25-8.25zm-3.61 3.5c-.173.003-.342.062-.486.183-.344.29-.68.796-.68 1.488 0 .973.53 1.94 1.058 2.58.528.64 2.254 3.73 5.438 4.93.91.34 1.543.513 2.06.666.924.27 1.765.235 2.428.136.74-.112 2.257-.923 2.576-1.815.32-.89.32-1.657.224-1.818-.096-.16-.353-.257-.738-.45-.386-.192-2.256-1.11-2.61-1.238-.352-.128-.61-.192-.865.193-.256.385-.992 1.237-1.216 1.493-.224.256-.45.29-.834.097-2.022-1.01-3.522-2.316-4.73-4.407-.193-.385-.02-.594.172-.787.172-.172.385-.45.577-.674.193-.224.257-.385.385-.642.128-.256.064-.482-.032-.674-.096-.193-.865-2.086-1.185-2.857-.31-.745-.63-.64-.866-.65-.175-.008-.363-.008-.545-.008z"/>
+        </svg>
+      </a>
+      <a href="https://instagram.com/tech4hack.community" target="_blank" rel="noopener" class="footer-social-link" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+      </a>
+      <a href="https://www.linkedin.com/company/tech4hack/" target="_blank" rel="noopener" class="footer-social-link" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+          <rect x="2" y="9" width="4" height="12"></rect>
+          <circle cx="4" cy="4" r="2"></circle>
+        </svg>
+      </a>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <div>© 2026 Tech4Hack. Learn. Build. Grow.</div>
+      <div>Mobile-First Cinematic Experience</div>
+    </div>
+  </footer>
+
+  <!-- Original network graph script -->
+  <script src="scripts/network-graph.js"></script>
+
+  <!-- ==========================================================================
+       CENTRALIZED SCROLL CONTROLLER & APPLICATION ARCHITECTURE
+       ========================================================================== -->
+  <script>
+    /**
+     * Tech4Hack Mobile-First Cinematic Engine
+     */
+    (function () {
+      'use strict';
+
+      const State = {
+        currentScene: 'SPLASH',
+        globalProgress: 0,
+        sceneProgress: 0,
+        activeSection: 0,
+        activeTimelineIndex: 0,
+        isSplashDismissed: false,
+        isReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+        timelineEvents: []
+      };
+
+      const DOM = {
+        splash: document.getElementById('splashScreen'),
+        container: document.getElementById('cinematicScrollContainer'),
+        sticky: document.getElementById('stickyViewport'),
+        heroLayer: document.getElementById('heroSceneLayer'),
+        heroLeftText: document.getElementById('heroLeftText'),
+        heroBoxContainer: document.getElementById('heroBoxContainer'),
+        fourStage: document.getElementById('fourSectionStage'),
+        slides: [
+          document.getElementById('sectionSlide0'),
+          document.getElementById('sectionSlide1'),
+          document.getElementById('sectionSlide2'),
+          document.getElementById('sectionSlide3')
+        ],
+        timelineStage: document.getElementById('timelineSceneStage'),
+        timelineTrack: document.getElementById('timelineTrackInner'),
+        timelineFill: document.getElementById('timelineProgressFill'),
+        timelineActiveLabel: document.getElementById('timelineActiveLabel'),
+        secNav: document.getElementById('sectionNavigator'),
+        secNavItems: document.querySelectorAll('.sec-nav-item'),
+        skipBtn: document.getElementById('skipNextBtn'),
+        skipLabel: document.getElementById('skipLabel'),
+        scrollProgress: document.getElementById('scrollProgress'),
+        nav: document.getElementById('topNav') || document.querySelector('.site-nav'),
+        burgerMenu: document.getElementById('burgerMenu'),
+        navLinks: document.getElementById('navLinksList'),
+        exploreEventsBtn: document.getElementById('exploreEventsBtn'),
+        cinematicSponsorBtn: document.getElementById('cinematicSponsorBtn'),
+        becomeSponsorBtn: document.getElementById('becomeSponsorBtn')
+      };
+
+      const RANGES = {
+        HERO:       { start: 0.00, end: 0.12 },
+        BOX_RESIZE: { start: 0.12, end: 0.28 },
+        BOX_FADE:   { start: 0.28, end: 0.35 },
+        SECTION_0:  { start: 0.35, end: 0.44 },
+        SECTION_1:  { start: 0.44, end: 0.53 },
+        SECTION_2:  { start: 0.53, end: 0.62 },
+        SECTION_3:  { start: 0.62, end: 0.72 },
+        TIMELINE:   { start: 0.72, end: 1.00 }
+      };
+
+      function clamp(val, min, max) {
+        return Math.min(Math.max(val, min), max);
+      }
+
+      function norm(val, start, end) {
+        return clamp((val - start) / (end - start), 0, 1);
+      }
+
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      function easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      }
+
+      // ── 1. Splash Life Cycle ──
+      function initSplash() {
+        if (State.isReducedMotion) {
+          if (DOM.splash) DOM.splash.style.display = 'none';
+          State.isSplashDismissed = true;
+          return;
+        }
+
+        let isDismissed = false;
+        function dismissSplash() {
+          if (isDismissed) return;
+          isDismissed = true;
+          State.isSplashDismissed = true;
+          if (DOM.splash) {
+            DOM.splash.classList.add('splash-hidden');
+            setTimeout(() => {
+              DOM.splash.style.display = 'none';
+            }, 700);
+          }
+        }
+
+        window.addEventListener('load', () => setTimeout(dismissSplash, 500));
+        setTimeout(dismissSplash, 2000); // Fail-safe
+      }
+
+      // ── 2. Timeline Dataset ──
+      const fallbackEvents = [
+        { "id": 1, "date": "September 2026", "title": "TechSangam 3.0", "location": "Thoughtworks Gurugram", "category": "Summit" },
+        { "id": 2, "date": "September 2026", "title": "Hack & Build 2026", "location": "Nagarro Gurugram", "category": "Hackathon" },
+        { "id": 3, "date": "August 2026", "title": "Buildathon 2026", "location": "Thoughtworks Gurugram", "category": "Buildathon" },
+        { "id": 4, "date": "June 2026", "title": "CodeStorm Hackathon", "location": "ThoughtWorks Gurugram", "category": "Hackathon" },
+        { "id": 5, "date": "May 2026", "title": "AI Spark", "location": "GFG Noida", "category": "Workshop" },
+        { "id": 6, "date": "April 2026", "title": "GitHub Dev Days", "location": "GFG Noida | Meerut", "category": "Dev Days" },
+        { "id": 7, "date": "April 2026", "title": "Salesforce AI", "location": "Tech4Hack Community", "category": "Workshop" },
+        { "id": 8, "date": "April 2026", "title": "HackFest 2026", "location": "Thoughtworks Gurugram", "category": "Hackathon" },
+        { "id": 9, "date": "March 2026", "title": "Developer Meetup", "location": "Thoughtworks Gurugram", "category": "Meetup" },
+        { "id": 10, "date": "January 2026", "title": "AI for All", "location": "Microsoft Gurugram", "category": "Conference" },
+        { "id": 11, "date": "December 2025", "title": "AI Fusion", "location": "Thoughtworks Gurugram", "category": "Summit" },
+        { "id": 12, "date": "September 2025", "title": "TechSangam 2.0", "location": "Microsoft Noida", "category": "Genesis" }
+      ];
+
+      function renderTimelineCards(events) {
+        State.timelineEvents = events;
+        if (!DOM.timelineTrack) return;
+        DOM.timelineTrack.innerHTML = '';
+
+        events.forEach((evt, idx) => {
+          const card = document.createElement('div');
+          card.className = 'timeline-event-card' + (idx === 0 ? ' active-event' : '');
+          card.setAttribute('data-index', idx);
+
+          const iconClass = evt.category === 'Hackathon' ? 'fa-laptop-code' :
+                            evt.category === 'Workshop' ? 'fa-screwdriver-wrench' :
+                            evt.category === 'Summit' ? 'fa-trophy' : 'fa-calendar-check';
+
+          card.innerHTML = `
+            <div class="event-badge"><i class="fa-solid ${iconClass}"></i> ${evt.category || 'Event'}</div>
+            <div class="event-date">${evt.date}</div>
+            <h3 class="event-title">${evt.title}</h3>
+            <div class="event-location"><i class="fa-solid fa-map-pin"></i> ${evt.location}</div>
+          `;
+          DOM.timelineTrack.appendChild(card);
+        });
+      }
+
+      function loadTimelineData() {
+        fetch('data/events.json')
+          .then(res => {
+            if (!res.ok) throw new Error('Events fetch failed');
+            return res.json();
+          })
+          .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
+              renderTimelineCards(data);
+            } else {
+              renderTimelineCards(fallbackEvents);
+            }
+          })
+          .catch(() => {
+            renderTimelineCards(fallbackEvents);
+          });
+      }
+
+      // ── 3. Scene Management: Mobile-First Transform Calculations ──
+      const SceneManager = {
+        updateHeroAndBox(p) {
+          if (!DOM.heroLayer || !DOM.heroLeftText || !DOM.heroBoxContainer) return;
+          const isMobile = window.innerWidth < 992;
+
+          if (p <= RANGES.HERO.end) {
+            // Stage 1: Hero entrance
+            DOM.heroLayer.style.opacity = '1';
+            DOM.heroLayer.style.pointerEvents = 'all';
+            DOM.heroLeftText.style.transform = 'none';
+            DOM.heroLeftText.style.opacity = '1';
+
+            if (isMobile) {
+              // On mobile, keep box initially transparent so hero text has 100% clean focus
+              DOM.heroBoxContainer.style.opacity = '0';
+              DOM.heroBoxContainer.style.transform = 'translate(-50%, -50%) scale(0.88)';
+              DOM.heroBoxContainer.style.pointerEvents = 'none';
+            } else {
+              DOM.heroBoxContainer.style.transform = 'none';
+              DOM.heroBoxContainer.style.opacity = '1';
+              DOM.heroBoxContainer.style.pointerEvents = 'all';
+            }
+          } else if (p <= RANGES.BOX_RESIZE.end) {
+            // Stage 2: Box Resizing
+            const t = norm(p, RANGES.BOX_RESIZE.start, RANGES.BOX_RESIZE.end);
+            const eased = easeInOutQuad(t);
+
+            DOM.heroLayer.style.opacity = '1';
+            DOM.heroLayer.style.pointerEvents = 'all';
+
+            // Text slides away smoothly
+            DOM.heroLeftText.style.transform = isMobile ? `translateY(${-28 * eased}px) scale(${1 - 0.05 * eased})` : `translateX(${-50 * eased}px)`;
+            DOM.heroLeftText.style.opacity = `${1 - eased}`;
+
+            if (isMobile) {
+              // Box scales up into center position on mobile
+              const mobileScale = 0.88 + (0.12 * eased);
+              DOM.heroBoxContainer.style.transform = `translate(-50%, -50%) scale(${mobileScale})`;
+              DOM.heroBoxContainer.style.opacity = `${eased}`;
+              DOM.heroBoxContainer.style.pointerEvents = eased > 0.5 ? 'all' : 'none';
+            } else {
+              const scale = 1 + (0.08 * eased);
+              const moveX = -180 * eased;
+              DOM.heroBoxContainer.style.transform = `translateX(${moveX}px) scale(${scale})`;
+              DOM.heroBoxContainer.style.opacity = '1';
+            }
+          } else if (p <= RANGES.BOX_FADE.end) {
+            // Stage 3: Box Fading
+            const t = norm(p, RANGES.BOX_FADE.start, RANGES.BOX_FADE.end);
+            const eased = easeInOutQuad(t);
+
+            DOM.heroLeftText.style.opacity = '0';
+
+            if (isMobile) {
+              const mobileScale = 1 - (0.08 * eased);
+              DOM.heroBoxContainer.style.transform = `translate(-50%, calc(-50% - ${16 * eased}px)) scale(${mobileScale})`;
+              DOM.heroBoxContainer.style.opacity = `${1 - eased}`;
+            } else {
+              const scale = 1.08 - (0.12 * eased);
+              DOM.heroBoxContainer.style.transform = `translateX(-180px) scale(${scale}) translateY(${-20 * eased}px)`;
+              DOM.heroBoxContainer.style.opacity = `${1 - eased}`;
+            }
+
+            if (t >= 0.96) {
+              DOM.heroLayer.style.pointerEvents = 'none';
+            }
+          } else {
+            DOM.heroLayer.style.opacity = '0';
+            DOM.heroLayer.style.pointerEvents = 'none';
+          }
+        },
+
+        updateFourSections(p) {
+          const sectionRanges = [
+            RANGES.SECTION_0,
+            RANGES.SECTION_1,
+            RANGES.SECTION_2,
+            RANGES.SECTION_3
+          ];
+
+          // Show sectionNavigator ONLY after scrolling into the four-section stage (hidden initially)
+          if (DOM.secNav) {
+            const isVisible = (p >= RANGES.SECTION_0.start - 0.02) && (p <= RANGES.SECTION_3.end + 0.03) && !State.isReducedMotion;
+            if (isVisible) {
+              DOM.secNav.classList.add('visible');
+            } else {
+              DOM.secNav.classList.remove('visible');
+            }
+          }
+
+          let activeSlideIndex = 0;
+          if (p > RANGES.SECTION_3.end) {
+            activeSlideIndex = 3;
+          }
+
+          sectionRanges.forEach((range, idx) => {
+            const slide = DOM.slides[idx];
+            if (!slide) return;
+
+            const mid = (range.start + range.end) / 2;
+            const halfSpan = (range.end - range.start) / 2;
+
+            if (p >= range.start && p <= range.end) {
+              activeSlideIndex = idx;
+              const enterT = norm(p, range.start, range.start + halfSpan * 0.45);
+              const exitT = norm(p, range.end - halfSpan * 0.45, range.end);
+
+              let opacity = 1;
+              let translateY = 0;
+              let scale = 1;
+
+              if (p < range.start + halfSpan * 0.45) {
+                opacity = enterT;
+                translateY = 24 * (1 - enterT);
+                scale = 0.96 + 0.04 * enterT;
+              } else if (p > range.end - halfSpan * 0.45) {
+                opacity = 1 - exitT;
+                translateY = -24 * exitT;
+                scale = 1 - 0.04 * exitT;
+              }
+
+              slide.style.opacity = opacity.toFixed(3);
+              slide.style.transform = `translateY(${translateY.toFixed(1)}px) scale(${scale.toFixed(3)})`;
+              slide.classList.add('active-slide');
+            } else {
+              slide.style.opacity = '0';
+              slide.style.transform = p < range.start ? 'translateY(28px) scale(0.96)' : 'translateY(-28px) scale(0.96)';
+              slide.classList.remove('active-slide');
+            }
+          });
+
+          if (activeSlideIndex !== -1) {
+            State.activeSection = activeSlideIndex;
+            DOM.secNavItems.forEach((btn, i) => {
+              if (i === activeSlideIndex) {
+                btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
+              } else {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-selected', 'false');
+              }
+            });
+          }
+        },
+
+        updateTimeline(p) {
+          if (!DOM.timelineStage) return;
+
+          if (p >= RANGES.TIMELINE.start) {
+            DOM.timelineStage.classList.add('active-stage');
+            const enterT = norm(p, RANGES.TIMELINE.start, RANGES.TIMELINE.start + 0.05);
+            DOM.timelineStage.style.opacity = enterT.toFixed(3);
+
+            const timelineT = norm(p, RANGES.TIMELINE.start, RANGES.TIMELINE.end);
+
+            if (DOM.timelineFill) {
+              DOM.timelineFill.style.width = `${(timelineT * 100).toFixed(1)}%`;
+            }
+
+            if (DOM.timelineTrack) {
+              const eventCards = DOM.timelineTrack.querySelectorAll('.timeline-event-card');
+              if (eventCards.length > 0) {
+                const activeIdx = Math.min(eventCards.length - 1, Math.floor(timelineT * eventCards.length));
+                State.activeTimelineIndex = activeIdx;
+
+                // Center the active card dynamically in the viewport on both mobile and desktop
+                const cardWidth = eventCards[0].offsetWidth;
+                const gap = window.innerWidth < 768 ? 16 : 28;
+                const viewWidth = DOM.timelineTrack.parentElement ? DOM.timelineTrack.parentElement.clientWidth : window.innerWidth;
+                const cardCenter = activeIdx * (cardWidth + gap) + (cardWidth / 2);
+                const curTranslate = (viewWidth / 2) - cardCenter;
+
+                DOM.timelineTrack.style.transform = `translateX(${curTranslate.toFixed(1)}px)`;
+
+                eventCards.forEach((card, idx) => {
+                  if (idx === activeIdx) {
+                    card.classList.add('active-event');
+                    if (DOM.timelineActiveLabel && State.timelineEvents[idx]) {
+                      DOM.timelineActiveLabel.textContent = State.timelineEvents[idx].title;
+                    }
+                  } else {
+                    card.classList.remove('active-event');
+                  }
+                });
+              }
+            }
+          } else {
+            DOM.timelineStage.style.opacity = '0';
+            DOM.timelineStage.classList.remove('active-stage');
+          }
+        },
+
+        updateSkipButton(p) {
+          if (!DOM.skipBtn || !DOM.skipLabel) return;
+
+          if (p >= 0.98 || State.isReducedMotion) {
+            DOM.skipBtn.classList.add('skip-hidden');
+            return;
+          }
+
+          DOM.skipBtn.classList.remove('skip-hidden');
+
+          if (p < RANGES.SECTION_0.start) {
+            DOM.skipLabel.textContent = 'Explore About';
+          } else if (p < RANGES.SECTION_1.start) {
+            DOM.skipLabel.textContent = 'What We Do';
+          } else if (p < RANGES.SECTION_2.start) {
+            DOM.skipLabel.textContent = 'Why Join';
+          } else if (p < RANGES.SECTION_3.start) {
+            DOM.skipLabel.textContent = 'Partners';
+          } else if (p < RANGES.TIMELINE.start) {
+            DOM.skipLabel.textContent = 'Timeline';
+          } else {
+            DOM.skipLabel.textContent = 'Finish ↓';
+          }
+        }
+      };
+
+      // ── 4. Centralized Scroll Listener & RequestAnimationFrame Loop ──
+      let targetProgress = 0;
+      let currentProgress = 0;
+
+      function onScroll() {
+        if (State.isReducedMotion || !DOM.container) return;
+
+        const rect = DOM.container.getBoundingClientRect();
+        const containerTop = window.scrollY + rect.top;
+        const totalScrollable = DOM.container.offsetHeight - window.innerHeight;
+
+        if (totalScrollable > 0) {
+          const scrolledInside = window.scrollY - containerTop;
+          targetProgress = clamp(scrolledInside / totalScrollable, 0, 1);
+        }
+
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const globalReadPercent = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+        if (DOM.scrollProgress) {
+          DOM.scrollProgress.style.width = `${globalReadPercent}%`;
+        }
+
+        if (DOM.nav) {
+          if (window.scrollY > 30) {
+            DOM.nav.classList.add('nav-scrolled');
+          } else {
+            DOM.nav.classList.remove('nav-scrolled');
+          }
+        }
+      }
+
+      function animationLoop() {
+        if (!State.isReducedMotion) {
+          currentProgress = lerp(currentProgress, targetProgress, 0.14);
+          if (Math.abs(currentProgress - targetProgress) < 0.0005) {
+            currentProgress = targetProgress;
+          }
+
+          State.globalProgress = currentProgress;
+
+          SceneManager.updateHeroAndBox(currentProgress);
+          SceneManager.updateFourSections(currentProgress);
+          SceneManager.updateTimeline(currentProgress);
+          SceneManager.updateSkipButton(currentProgress);
+        }
+
+        requestAnimationFrame(animationLoop);
+      }
+
+      // ── 5. Navigation & Skip Controllers ──
+      function scrollToProgress(prog) {
+        if (!DOM.container) return;
+        const rect = DOM.container.getBoundingClientRect();
+        const containerTop = window.scrollY + rect.top;
+        const totalScrollable = DOM.container.offsetHeight - window.innerHeight;
+        const targetY = containerTop + (prog * totalScrollable);
+
+        window.scrollTo({
+          top: targetY,
+          behavior: 'smooth'
+        });
+      }
+
+      function initNavigation() {
+        // Section Navigator tap handling
+        DOM.secNavItems.forEach(btn => {
+          btn.addEventListener('click', function () {
+            const idx = parseInt(this.getAttribute('data-index'), 10);
+            const sectionTargetProgress = [
+              RANGES.SECTION_0.start + 0.02,
+              RANGES.SECTION_1.start + 0.02,
+              RANGES.SECTION_2.start + 0.02,
+              RANGES.SECTION_3.start + 0.02
+            ];
+            scrollToProgress(sectionTargetProgress[idx] || 0.36);
+          });
+        });
+
+        // Skip Button click handling
+        if (DOM.skipBtn) {
+          DOM.skipBtn.addEventListener('click', function () {
+            const p = State.globalProgress;
+            if (p < RANGES.SECTION_0.start) {
+              scrollToProgress(RANGES.SECTION_0.start + 0.02);
+            } else if (p < RANGES.SECTION_1.start) {
+              scrollToProgress(RANGES.SECTION_1.start + 0.02);
+            } else if (p < RANGES.SECTION_2.start) {
+              scrollToProgress(RANGES.SECTION_2.start + 0.02);
+            } else if (p < RANGES.SECTION_3.start) {
+              scrollToProgress(RANGES.SECTION_3.start + 0.02);
+            } else if (p < RANGES.TIMELINE.start) {
+              scrollToProgress(RANGES.TIMELINE.start + 0.02);
+            } else {
+              if (DOM.container) {
+                const rect = DOM.container.getBoundingClientRect();
+                const containerBottom = window.scrollY + rect.bottom;
+                window.scrollTo({
+                  top: containerBottom + 10,
+                  behavior: 'smooth'
+                });
+              }
+            }
+          });
+        }
+
+        if (DOM.exploreEventsBtn) {
+          DOM.exploreEventsBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            scrollToProgress(RANGES.TIMELINE.start + 0.02);
+          });
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+          link.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href').substring(1);
+            if (!targetId) return;
+
+            const mapToProgress = {
+              'hero': 0,
+              'about': RANGES.SECTION_0.start + 0.02,
+              'do': RANGES.SECTION_1.start + 0.02,
+              'why': RANGES.SECTION_2.start + 0.02,
+              'partners': RANGES.SECTION_3.start + 0.02,
+              'events': RANGES.TIMELINE.start + 0.02,
+              'timeline': RANGES.TIMELINE.start + 0.02
+            };
+
+            if (mapToProgress[targetId] !== undefined) {
+              e.preventDefault();
+              scrollToProgress(mapToProgress[targetId]);
+            }
+          });
+        });
+
+        // Mobile Nav Drawer Toggle
+        if (DOM.burgerMenu && DOM.navLinks) {
+          DOM.burgerMenu.addEventListener('click', function () {
+            const isOpen = DOM.navLinks.classList.toggle('active');
+            if (DOM.nav) DOM.nav.classList.toggle('nav-menu-open', isOpen);
+            DOM.burgerMenu.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          });
+
+          DOM.navLinks.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+              DOM.navLinks.classList.remove('active');
+              if (DOM.nav) DOM.nav.classList.remove('nav-menu-open');
+              DOM.burgerMenu.setAttribute('aria-expanded', 'false');
+            });
+          });
+        }
+      }
+
+      // ── 6. Auxiliary Features: Quotes, Modal, Particles ──
+      function initAuxiliaryFeatures() {
+        if (typeof initNetworkGraph === 'function') {
+          initNetworkGraph('heroNetworkCanvas', 'stickyViewport');
+        }
+
+        const quotes = [
+          { text: "The best way to predict the future is to invent it.", author: "Alan Kay", role: "Computer Scientist" },
+          { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs", role: "Co-founder, Apple" },
+          { text: "Technology is best when it brings people together.", author: "Matt Mullenweg", role: "Creator of WordPress" },
+          { text: "Simplicity is the soul of efficiency.", author: "Austin Freeman", role: "Author" },
+          { text: "First, solve the problem. Then, write the code.", author: "John Johnson", role: "Software Engineer" },
+          { text: "Hackathons are the petri dishes of innovation.", author: "TechCrunch", role: "Publication" }
+        ];
+        const q = quotes[Math.floor(Math.random() * quotes.length)];
+        const textEl = document.getElementById('quoteText');
+        const authorEl = document.getElementById('quoteAuthor');
+        const roleEl = document.getElementById('quoteRole');
+        if (textEl && authorEl) {
+          textEl.textContent = q.text;
+          authorEl.textContent = '— ' + q.author;
+          if (roleEl) roleEl.textContent = q.role;
+        }
+
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Sponsorship Modal
+        const overlay = document.getElementById('sponsorModalOverlay');
+        const openBtn = document.getElementById('becomeSponsorBtn');
+        const cinematicOpenBtn = document.getElementById('cinematicSponsorBtn');
+        const closeBtn = document.getElementById('sponsorModalClose');
+        const form = document.getElementById('sponsorshipForm');
+        const formWrap = document.getElementById('sponsorFormWrap');
+        const success = document.getElementById('sponsorSuccess');
+
+        function openModal() {
+          if (overlay) {
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+          }
+        }
+        function closeModal() {
+          if (overlay) {
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+          }
+        }
+
+        if (openBtn) openBtn.addEventListener('click', openModal);
+        if (cinematicOpenBtn) cinematicOpenBtn.addEventListener('click', openModal);
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        if (overlay) {
+          overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) closeModal();
+          });
+        }
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && overlay && overlay.classList.contains('open')) closeModal();
+        });
+
+        if (form) {
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            let valid = true;
+            form.querySelectorAll('input[required]').forEach(inp => {
+              if (!inp.value.trim()) {
+                inp.style.borderColor = 'rgba(217,38,181,0.7)';
+                valid = false;
+              } else {
+                inp.style.borderColor = '';
+              }
+            });
+            if (!valid) return;
+            if (formWrap && success) {
+              formWrap.style.display = 'none';
+              success.classList.add('show');
+              setTimeout(() => {
+                closeModal();
+                setTimeout(() => {
+                  formWrap.style.display = '';
+                  success.classList.remove('show');
+                  form.reset();
+                }, 400);
+              }, 3000);
+            }
+          });
+        }
+      }
+
+      // ── Bootstrapping ──
+      initSplash();
+      loadTimelineData();
+      initNavigation();
+      initAuxiliaryFeatures();
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+
+      onScroll();
+      requestAnimationFrame(animationLoop);
+    })();
+  </script>
+</body>
+
+</html>
