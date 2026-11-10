@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 48" fill="none">
+  <path d="M26 14C18 14 10 20 6 24C10 28 18 34 26 34C28 34 32 32 34 30L38 34V14L34 18C32 16 28 14 26 14Z" fill="#00E5FF"/>
+  <circle cx="16" cy="22" r="2.5" fill="#070510"/>
+  <text x="46" y="32" font-family="'Sora', 'Segoe UI', sans-serif" font-weight="700" font-size="20" fill="#FFFFFF" letter-spacing="0.5">tiny<tspan fill="#00E5FF">fish</tspan></text>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 48" fill="none">
+  <rect x="4" y="8" width="32" height="32" rx="10" fill="url(#heygen_grad)"/>
+  <path d="M16 18L26 24L16 30V18Z" fill="#FFFFFF"/>
+  <defs>
+    <linearGradient id="heygen_grad" x1="4" y1="8" x2="36" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7B2CBF"/>
+      <stop offset="1" stop-color="#FF5492"/>
+    </linearGradient>
+  </defs>
+  <text x="44" y="32" font-family="'Sora', 'Segoe UI', sans-serif" font-weight="800" font-size="21" fill="#FFFFFF" letter-spacing="0.5">HeyGen</text>
+</svg>
