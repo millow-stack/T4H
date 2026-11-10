@@ -8,6 +8,9 @@
   <link rel="icon" type="image/x-icon" href="images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Font Awesome for iconography -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <link
     href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap"
     rel="stylesheet">
@@ -824,6 +827,47 @@
       background: var(--purple-dim) !important;
       border-color: var(--purple) !important;
     }
+    /* ── EMPTY STATE FOR TABS ── */
+    .gallery-empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 70px 24px;
+      background: rgba(21, 17, 44, 0.45);
+      border: 1px dashed rgba(192, 132, 252, 0.28);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      margin: 10px 0 30px;
+    }
+    .gallery-empty-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: rgba(139, 34, 226, 0.16);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #c084fc;
+      box-shadow: 0 0 20px rgba(139, 34, 226, 0.2);
+    }
+    .gallery-empty-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .gallery-empty-desc {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 500px;
+      margin: 0 auto 24px;
+      line-height: 1.6;
+    }
+
   </style>
 </head>
 
@@ -843,6 +887,7 @@
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#chapters">Chapters</a></li>
         <li><a href="gallery.html" class="active-nav-link">Gallery</a></li>
         <li><a href="index.html#events">Events</a></li>
         <li><a href="index.html#contact">Contact</a></li>
@@ -1113,24 +1158,36 @@
       galleryGrid.innerHTML = '';
       
       if (typeof galleryEvents === 'undefined' || !galleryEvents.length) {
-        galleryGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--muted); padding: 40px;">No event data found. Run sync_gallery.py script.</div>';
+        galleryGrid.innerHTML = `
+          <div class="gallery-empty-state">
+            <div class="gallery-empty-icon"><i class="fa-solid fa-camera-retro"></i></div>
+            <h3 class="gallery-empty-title">Gallery Archive Updating</h3>
+            <p class="gallery-empty-desc">No events currently found. Please refresh or check back shortly.</p>
+          </div>
+        `;
         return;
       }
       
+      let matchedCount = 0;
       galleryEvents.forEach(event => {
         if (filterCategory === 'all' || event.category === filterCategory) {
+          matchedCount++;
           const card = document.createElement('div');
           card.className = 'gallery-item gradient-border-card';
           card.setAttribute('data-category', event.category);
           card.style.cursor = 'pointer';
           
           const categoryLabel = event.category.replace('-', ' ');
+          const hasImages = Array.isArray(event.images) && event.images.length > 0;
+          const coverImg = hasImages ? event.images[0] : 'images/tech4hack_cover.jpg';
+          const badgeText = hasImages ? `${event.images.length} Photos` : 'Photos Coming Soon';
+          const badgeColor = hasImages ? '#c084fc' : '#fb7185';
           
           card.innerHTML = `
             <div class="gallery-card-visual">
-              <img src="${event.images[0]}" alt="${event.name}" class="gallery-card-img" loading="lazy">
-              <span class="gallery-photo-count-badge" style="position: absolute; top: 16px; right: 16px; background: rgba(7, 5, 16, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; color: #c084fc; border: 1px solid rgba(139, 34, 226, 0.3); z-index: 5; font-family: 'Sora', sans-serif; letter-spacing: 0.02em;">
-                ${event.images.length} Photos
+              <img src="${coverImg}" alt="${event.name}" class="gallery-card-img" loading="lazy" onerror="this.onerror=null;this.src='images/tech4hack_cover.jpg';">
+              <span class="gallery-photo-count-badge" style="position: absolute; top: 16px; right: 16px; background: rgba(7, 5, 16, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; color: ${badgeColor}; border: 1px solid rgba(139, 34, 226, 0.3); z-index: 5; font-family: 'Sora', sans-serif; letter-spacing: 0.02em;">
+                ${badgeText}
               </span>
               <div class="gallery-card-glow"></div>
             </div>
@@ -1142,12 +1199,31 @@
           `;
           
           card.addEventListener('click', () => {
-            openSlideshow(event.id);
+            if (hasImages) {
+              openSlideshow(event.id);
+            } else {
+              alert('Highlights and full album for "' + event.name + '" are currently being curated by our media team and will be published shortly!');
+            }
           });
           
           galleryGrid.appendChild(card);
         }
       });
+
+      // Handle Empty Tabs gracefully
+      if (matchedCount === 0) {
+        const catName = filterCategory.replace('-', ' ');
+        galleryGrid.innerHTML = `
+          <div class="gallery-empty-state">
+            <div class="gallery-empty-icon"><i class="fa-solid fa-camera-retro"></i></div>
+            <h3 class="gallery-empty-title">Photos Coming Soon</h3>
+            <p class="gallery-empty-desc">Moments from <strong>${catName}</strong> are currently being curated by our community media team and will be archived here shortly.</p>
+            <button class="btn btn-outline" style="font-size: 13.5px; padding: 8px 22px;" onclick="renderEvents('all'); document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); document.querySelector('.filter-btn[data-filter=\'all\']').classList.add('active');">
+              Explore All Photos
+            </button>
+          </div>
+        `;
+      }
     }
 
     // Initialize rendering

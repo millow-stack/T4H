@@ -890,44 +890,244 @@
 
     .timeline-load-more-wrap {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 0px 0 0px;
-      max-resolution: top;
+      padding: 36px 0 10px;
       position: relative;
       z-index: 5;
+      gap: 12px;
     }
 
     #timelineLoadMore {
-      width: 52px;
-      height: 52px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      background: rgba(139, 34, 226, 0.12);
+      background: rgba(139, 34, 226, 0.18);
       border: 2px solid rgba(192, 132, 252, 0.45);
       color: #c084fc;
-      font-size: 26px;
+      font-size: 28px;
+      font-family: 'DM Sans', sans-serif;
       line-height: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      text-decoration: none;
       transition:
         background 0.3s ease,
         border-color 0.3s ease,
         box-shadow 0.3s ease,
         transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 0 0 0 rgba(192, 132, 252, 0);
+      box-shadow: 0 0 16px rgba(192, 132, 252, 0.2);
     }
 
     #timelineLoadMore:hover {
-      background: rgba(139, 34, 226, 0.28);
-      border-color: #c084fc;
-      box-shadow: 0 0 22px rgba(192, 132, 252, 0.45);
-      transform: scale(1.12) rotate(15deg);
+      background: rgba(217, 38, 181, 0.3);
+      border-color: #d926b5;
+      box-shadow: 0 0 25px rgba(217, 38, 181, 0.55);
+      transform: scale(1.15) rotate(90deg);
+      color: #ffffff;
     }
 
     #timelineLoadMore:active {
-      transform: scale(0.93);
+      transform: scale(0.95);
+    }
+
+    .timeline-gallery-hint {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #c084fc;
+      text-transform: uppercase;
+      opacity: 0.9;
+      transition: opacity 0.25s ease, color 0.25s ease;
+    }
+
+    .timeline-load-more-wrap:hover .timeline-gallery-hint {
+      opacity: 1;
+      color: #f5f3ff;
+    }
+
+    /* ── CHAPTER SETUP PROCESS ── */
+    .chapters-section {
+      background: linear-gradient(180deg, var(--bg) 0%, rgba(21, 17, 44, 0.5) 50%, var(--bg) 100%);
+      position: relative;
+    }
+
+    .chapter-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(139, 34, 226, 0.12);
+      border: 1px solid rgba(192, 132, 252, 0.28);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #c084fc;
+      margin-bottom: 16px;
+    }
+
+    .chapter-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .chapter-step-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 28px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+
+    .chapter-step-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #c084fc, #8b22e2, #d926b5);
+      opacity: 0.3;
+      transition: opacity 0.35s ease, height 0.35s ease;
+    }
+
+    .chapter-step-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(217, 38, 181, 0.4);
+      box-shadow: 0 14px 34px rgba(121, 22, 205, 0.18);
+    }
+
+    .chapter-step-card:hover::before {
+      opacity: 1;
+      height: 4px;
+    }
+
+    .step-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .step-num-pill {
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: rgba(139, 34, 226, 0.2);
+      color: #c084fc;
+      border: 1px solid rgba(192, 132, 252, 0.25);
+    }
+
+    .step-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(217, 38, 181, 0.12);
+      border: 1px solid rgba(217, 38, 181, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f472b6;
+      font-size: 18px;
+    }
+
+    .step-card-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+
+    .step-card-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-grow: 1;
+    }
+
+    .step-card-list li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 14.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .step-card-list li::before {
+      content: '•';
+      position: absolute;
+      left: 4px;
+      color: #d926b5;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .chapter-cta-bar {
+      margin-top: 50px;
+      text-align: center;
+      padding: 30px 28px;
+      background: rgba(21, 17, 44, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .chapter-cta-text h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+      text-align: left;
+    }
+
+    .chapter-cta-text p {
+      color: var(--muted);
+      font-size: 14.5px;
+      text-align: left;
+    }
+
+    @media (max-width: 992px) {
+      .chapter-steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .chapter-steps-grid {
+        grid-template-columns: 1fr;
+      }
+      .chapter-cta-bar {
+        flex-direction: column;
+        text-align: center;
+      }
+      .chapter-cta-text h3,
+      .chapter-cta-text p {
+        text-align: center;
+      }
     }
 
     /* ── WHY JOIN ── */
@@ -1624,6 +1824,185 @@
       margin-top: 50px;
     }
 
+
+    /* ── CHAPTER APPLICATION GOOGLE FORM MODAL ── */
+    .chapter-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(4, 3, 10, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .chapter-modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .chapter-modal {
+      background: linear-gradient(135deg, rgba(21, 17, 44, 0.98) 0%, rgba(10, 7, 25, 0.98) 100%);
+      border: 1px solid rgba(192, 132, 252, 0.25);
+      border-radius: 20px;
+      max-width: 820px;
+      width: 100%;
+      height: 90vh;
+      max-height: 850px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7), 0 0 40px rgba(139, 34, 226, 0.2);
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.64, 1);
+      overflow: hidden;
+    }
+
+    .chapter-modal-overlay.open .chapter-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .chapter-modal-header {
+      padding: 24px 32px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      background: rgba(14, 11, 29, 0.9);
+      flex-shrink: 0;
+    }
+
+    .chapter-modal-actions {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chapter-modal-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .chapter-modal-btn:hover {
+      background: rgba(217, 38, 181, 0.18);
+      border-color: rgba(217, 38, 181, 0.4);
+      color: #fff;
+    }
+
+    .chapter-modal-close {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .chapter-modal-close:hover {
+      transform: rotate(90deg);
+    }
+
+    .chapter-modal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(139, 34, 226, 0.15);
+      border: 1px solid rgba(192, 132, 252, 0.25);
+      color: #c084fc;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+
+    .chapter-modal-title {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(20px, 3vw, 24px);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+
+    .chapter-modal-title span {
+      background: linear-gradient(to bottom, #c084fc, #d926b5, #7916cd, #1e12b8, #6366f1, #d926b5, #c084fc);
+      background-attachment: fixed;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .chapter-modal-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .chapter-modal-body {
+      flex: 1;
+      position: relative;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .chapter-iframe-loader {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      color: var(--muted);
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      gap: 12px;
+      z-index: 2;
+      transition: opacity 0.3s ease;
+    }
+
+    .chapter-iframe-loader i {
+      font-size: 22px;
+      color: var(--purple);
+    }
+
+    .chapter-modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .chapter-modal {
+        height: 95vh;
+        max-height: none;
+        border-radius: 16px;
+      }
+      .chapter-modal-header {
+        padding: 20px 20px 14px;
+      }
+      .chapter-modal-actions {
+        top: 16px;
+        right: 16px;
+      }
+    }
+
     /* ── SPONSORSHIP MODAL ── */
     .sponsor-modal-overlay {
       position: fixed;
@@ -2150,6 +2529,7 @@
       <ul class="nav-links">
         <li><a href="#">Home</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#chapters">Chapters</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="#events">Events</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -2195,7 +2575,7 @@
           Join a vibrant community of developers, designers, and innovators. Build groundbreaking projects, participate in exciting hackathons, and shape the future of technology together.
         </p>
         <p class="hero-subdesc">
-          Join 15,000+ active members shaping tomorrow's digital world.
+          Join 27,000+ active members shaping tomorrow's digital world.
         </p>
         <div class="hero-ctas">
           <a href="https://linktr.ee/tech4hack" target="_blank" rel="noopener" class="btn btn-primary">Join Community</a>
@@ -2204,22 +2584,22 @@
         </div>
       </div>
 
-      <div class="stats-grid">
+      <div class="stats-grid" id="statsGrid">
         <div class="stat-card">
-          <div class="stat-number">15k+</div>
-          <div class="stat-label">Active Members</div>
+          <div class="stat-number" data-stat="members">27k+</div>
+          <div class="stat-label">COMMUNITY MEMBERS</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number">15+</div>
-          <div class="stat-label">Projects Built</div>
+          <div class="stat-number" data-stat="chapters">35+</div>
+          <div class="stat-label">CHAPTERS ACROSS INDIA</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number">10+</div>
-          <div class="stat-label">Hackathons Hosted</div>
+          <div class="stat-number" data-stat="events">100+</div>
+          <div class="stat-label">EVENTS ORGANISED</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number">30k+</div>
-          <div class="stat-label">Community Reach</div>
+          <div class="stat-number" data-stat="collabs">55+</div>
+          <div class="stat-label">COMMUNITY COLLABORATED</div>
         </div>
       </div>
     </section>
@@ -2320,6 +2700,102 @@
     </div>
   </section>
 
+  <!-- CHAPTER SETUP PROCESS -->
+  <section id="chapters" class="chapters-section section-padding reveal">
+    <div class="container">
+      <div class="section-header">
+        <div class="chapter-badge"><i class="fa-solid fa-graduation-cap"></i> Student Chapter Program</div>
+        <h2 class="section-title">Chapter Setup <span>Process</span></h2>
+        <p class="section-subtitle">From Ideation to Impact — A Step-by-Step Journey</p>
+      </div>
+
+      <div class="chapter-steps-grid" id="chapterStepsGrid">
+        <div class="chapter-step-card gradient-border-card">
+          <div class="step-card-header">
+            <span class="step-num-pill">Step 01</span>
+            <div class="step-icon-wrap"><i class="fa-solid fa-users-gear"></i></div>
+          </div>
+          <h3 class="step-card-title">1. Set Up Your Chapter</h3>
+          <ul class="step-card-list">
+            <li>Create a WhatsApp group.</li>
+            <li>Create a Gmail account.</li>
+            <li>Create an Instagram page.</li>
+            <li>Create a LinkedIn page.</li>
+          </ul>
+        </div>
+
+        <div class="chapter-step-card gradient-border-card">
+          <div class="step-card-header">
+            <span class="step-num-pill">Step 02</span>
+            <div class="step-icon-wrap"><i class="fa-solid fa-stamp"></i></div>
+          </div>
+          <h3 class="step-card-title">2. Obtain College Permission</h3>
+          <ul class="step-card-list">
+            <li>Get approval from the Head of Department (HOD) and Dean.</li>
+            <li>Seek support from the college, if required.</li>
+          </ul>
+        </div>
+
+        <div class="chapter-step-card gradient-border-card">
+          <div class="step-card-header">
+            <span class="step-num-pill">Step 03</span>
+            <div class="step-icon-wrap"><i class="fa-solid fa-envelope-open-text"></i></div>
+          </div>
+          <h3 class="step-card-title">3. Create an Official College Email ID</h3>
+          <ul class="step-card-list">
+            <li>Set up an official college email ID (e.g., tech4hack@college.ac.in).</li>
+            <li>Use it for all official communications.</li>
+          </ul>
+        </div>
+
+        <div class="chapter-step-card gradient-border-card">
+          <div class="step-card-header">
+            <span class="step-num-pill">Step 04</span>
+            <div class="step-icon-wrap"><i class="fa-solid fa-user-group"></i></div>
+          </div>
+          <h3 class="step-card-title">4. Build Your Core Team</h3>
+          <ul class="step-card-list">
+            <li>Appoint 1 Vice President / Co-Lead.</li>
+            <li>Recruit 6 Core Team Members.</li>
+            <li>Onboard 12–15 Volunteers.</li>
+          </ul>
+        </div>
+
+        <div class="chapter-step-card gradient-border-card">
+          <div class="step-card-header">
+            <span class="step-num-pill">Step 05</span>
+            <div class="step-icon-wrap"><i class="fa-solid fa-chalkboard-user"></i></div>
+          </div>
+          <h3 class="step-card-title">5. Organise Your First Event</h3>
+          <ul class="step-card-list">
+            <li>Start with a technical workshop or speaker session.</li>
+            <li>Build your community and engage students.</li>
+          </ul>
+        </div>
+
+        <div class="chapter-step-card gradient-border-card">
+          <div class="step-card-header">
+            <span class="step-num-pill">Step 06</span>
+            <div class="step-icon-wrap"><i class="fa-solid fa-rocket"></i></div>
+          </div>
+          <h3 class="step-card-title">6. Plan Bigger Initiatives</h3>
+          <ul class="step-card-list">
+            <li>Build on the success of your first event.</li>
+            <li>Organise hackathons, workshops, and other technical events.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="chapter-cta-bar">
+        <div class="chapter-cta-text">
+          <h3>Ready to Lead Innovation on Your Campus?</h3>
+          <p>Join over 35+ vibrant chapters across India with full mentorship, resources, and event support.</p>
+        </div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSed8Y4guTgRfgaH-jteri3jyMtBsnMBLtcmhvaT0HjPjQodaA/viewform" id="startChapterBtn" target="_blank" rel="noopener" class="btn btn-primary"><i class="fa-solid fa-graduation-cap" style="margin-right: 6px;"></i> Start a Chapter</a>
+      </div>
+    </div>
+  </section>
+
   <!-- OUR IMPACT / EVENTS -->
   <section id="events" class="impact-section section-padding reveal">
     <div class="container">
@@ -2336,10 +2812,6 @@
           Loading events...
         </div>
       </div><!-- /.timeline -->
-      <!-- Load-more circle button sits at the bottom of .timeline so the progress bar includes it -->
-      <div class="timeline-load-more-wrap" id="timelineLoadMoreWrap" style="display: none;">
-        <button id="timelineLoadMore" title="Show more events">+</button>
-      </div>
     </div><!-- /.container -->
   </section>
 
@@ -2393,91 +2865,108 @@
         <p class="section-subtitle">We are proud to have Collaborated with leading organizations and communities.</p>
       </div>
 
-      <div class="partners-marquee-wrapper">
-        <div class="partners-marquee-track">
+            <div class="partners-marquee-wrapper">
+                <div class="partners-marquee-track" id="partnersMarqueeTrack">
           <!-- Set 1 -->
           <div class="partner-logo-card">
-            <img src="images/partners/Microsoft.svg" alt="Microsoft" class="partner-logo-img" loading="lazy" decoding="async">
+            <img src="images/partners/Microsoft.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=microsoft.com&sz=128&utm_source=chatgpt.com';" alt="Microsoft" class="partner-logo-img" loading="lazy" decoding="async">
             <span>Microsoft</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/GitHub.svg" alt="GitHub" class="partner-logo-img invert-logo" loading="lazy" decoding="async">
+            <img src="images/partners/Google.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=google.com&sz=128&utm_source=chatgpt.com';" alt="Google" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Google</span>
+          </div>
+          <div class="partner-logo-card">
+            <img src="images/partners/GitHub.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=github.com&sz=128&utm_source=chatgpt.com';" alt="GitHub" class="partner-logo-img invert-logo" loading="lazy" decoding="async">
             <span>GitHub</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/Azure.svg" alt="Azure Dev Comm" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>Azure Dev Comm</span>
+            <img src="images/partners/Paytm.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=paytm.com&sz=128&utm_source=chatgpt.com';" alt="Paytm" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Paytm</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/RedBull.svg" alt="Red Bull" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>Red Bull</span>
+            <img src="images/partners/MLH.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=mlh.com&sz=128&utm_source=chatgpt.com';" alt="MLH" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>MLH</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/Unstop.svg" alt="Unstop" class="partner-logo-img" loading="lazy" decoding="async">
+            <img src="images/partners/Thoughtworks.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=thoughtworks.com&sz=128&utm_source=chatgpt.com';" alt="Thoughtworks" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Thoughtworks</span>
+          </div>
+          <div class="partner-logo-card">
+            <img src="images/partners/Nagarro.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=nagarro.com&sz=128&utm_source=chatgpt.com';" alt="Nagarro" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Nagarro</span>
+          </div>
+          <div class="partner-logo-card">
+            <img src="images/partners/Unstop.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=unstop.com&sz=128&utm_source=chatgpt.com';" alt="Unstop" class="partner-logo-img" loading="lazy" decoding="async">
             <span>Unstop</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/TruScholar.svg" alt="TruScholar" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>TruScholar</span>
+            <img src="images/partners/Duality.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=duality.ai&sz=128&utm_source=chatgpt.com';" alt="Duality" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Duality</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/Reskilll.svg" alt="Reskilll" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>Reskilll</span>
+            <img src="images/partners/Tinyfish.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=tinyfish.ai&sz=128&utm_source=chatgpt.com';" alt="Tinyfish" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Tinyfish</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/Assistflow.svg" alt="Assistflow" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>Assistflow</span>
+            <img src="images/partners/HeyGen.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=heygen.com&sz=128&utm_source=chatgpt.com';" alt="HeyGen" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>HeyGen</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/xyz.svg" alt=".xyz" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>.xyz</span>
-          </div>
-          <div class="partner-logo-card">
-            <img src="images/partners/ID8NXT.svg" alt="ID8NXT" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>ID8NXT</span>
+            <img src="images/partners/RedBull.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=redbull.com&sz=128&utm_source=chatgpt.com';" alt="Red Bull" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Red Bull</span>
           </div>
           <!-- Set 2 (Duplicated for seamless loop animation) -->
           <div class="partner-logo-card">
-            <img src="images/partners/Microsoft.svg" alt="Microsoft" class="partner-logo-img" loading="lazy" decoding="async">
+            <img src="images/partners/Microsoft.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=microsoft.com&sz=128&utm_source=chatgpt.com';" alt="Microsoft" class="partner-logo-img" loading="lazy" decoding="async">
             <span>Microsoft</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/GitHub.svg" alt="GitHub" class="partner-logo-img invert-logo" loading="lazy" decoding="async">
+            <img src="images/partners/Google.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=google.com&sz=128&utm_source=chatgpt.com';" alt="Google" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Google</span>
+          </div>
+          <div class="partner-logo-card">
+            <img src="images/partners/GitHub.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=github.com&sz=128&utm_source=chatgpt.com';" alt="GitHub" class="partner-logo-img invert-logo" loading="lazy" decoding="async">
             <span>GitHub</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/Azure.svg" alt="Azure Dev Comm" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>Azure Dev Comm</span>
+            <img src="images/partners/Paytm.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=paytm.com&sz=128&utm_source=chatgpt.com';" alt="Paytm" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Paytm</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/RedBull.svg" alt="Red Bull" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>Red Bull</span>
+            <img src="images/partners/MLH.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=mlh.com&sz=128&utm_source=chatgpt.com';" alt="MLH" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>MLH</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/Unstop.svg" alt="Unstop" class="partner-logo-img" loading="lazy" decoding="async">
+            <img src="images/partners/Thoughtworks.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=thoughtworks.com&sz=128&utm_source=chatgpt.com';" alt="Thoughtworks" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Thoughtworks</span>
+          </div>
+          <div class="partner-logo-card">
+            <img src="images/partners/Nagarro.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=nagarro.com&sz=128&utm_source=chatgpt.com';" alt="Nagarro" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Nagarro</span>
+          </div>
+          <div class="partner-logo-card">
+            <img src="images/partners/Unstop.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=unstop.com&sz=128&utm_source=chatgpt.com';" alt="Unstop" class="partner-logo-img" loading="lazy" decoding="async">
             <span>Unstop</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/TruScholar.svg" alt="TruScholar" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>TruScholar</span>
+            <img src="images/partners/Duality.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=duality.ai&sz=128&utm_source=chatgpt.com';" alt="Duality" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Duality</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/Reskilll.svg" alt="Reskilll" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>Reskilll</span>
+            <img src="images/partners/Tinyfish.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=tinyfish.ai&sz=128&utm_source=chatgpt.com';" alt="Tinyfish" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Tinyfish</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/Assistflow.svg" alt="Assistflow" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>Assistflow</span>
+            <img src="images/partners/HeyGen.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=heygen.com&sz=128&utm_source=chatgpt.com';" alt="HeyGen" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>HeyGen</span>
           </div>
           <div class="partner-logo-card">
-            <img src="images/partners/xyz.svg" alt=".xyz" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>.xyz</span>
-          </div>
-          <div class="partner-logo-card">
-            <img src="images/partners/ID8NXT.svg" alt="ID8NXT" class="partner-logo-img" loading="lazy" decoding="async">
-            <span>ID8NXT</span>
+            <img src="images/partners/RedBull.png" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=redbull.com&sz=128&utm_source=chatgpt.com';" alt="Red Bull" class="partner-logo-img" loading="lazy" decoding="async">
+            <span>Red Bull</span>
           </div>
         </div>
+      </div>
       </div>
 
       <p class="section-subtitle" style="margin-bottom: 24px;">Interested in partnering with us? Let's build the future together.</p>
@@ -2636,6 +3125,39 @@
     </div>
   </section>
 
+
+  <!-- ── CHAPTER APPLICATION FORM MODAL ── -->
+  <div class="chapter-modal-overlay" id="chapterModalOverlay" role="dialog" aria-modal="true" aria-labelledby="chapterModalTitle">
+    <div class="chapter-modal" id="chapterModal">
+      <!-- Header -->
+      <div class="chapter-modal-header">
+        <div class="chapter-modal-actions">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSed8Y4guTgRfgaH-jteri3jyMtBsnMBLtcmhvaT0HjPjQodaA/viewform" target="_blank" rel="noopener" class="chapter-modal-btn" title="Open in New Tab" aria-label="Open in New Tab">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          <button class="chapter-modal-btn chapter-modal-close" id="chapterModalClose" aria-label="Close dialog">&times;</button>
+        </div>
+        <div class="chapter-modal-badge"><i class="fa-solid fa-graduation-cap"></i> Student Chapter Program</div>
+        <h2 class="chapter-modal-title" id="chapterModalTitle">Start a <span>Tech4Hack Chapter</span></h2>
+        <p class="chapter-modal-desc">Take the lead in building an innovation hub at your campus. Complete the application form below to begin the onboarding journey.</p>
+      </div>
+
+      <!-- Iframe Body -->
+      <div class="chapter-modal-body">
+        <div class="chapter-iframe-loader" id="chapterIframeLoader">
+          <i class="fa-solid fa-circle-notch fa-spin"></i> Loading Application Form...
+        </div>
+        <iframe
+          id="chapterGoogleFormIframe"
+          src=""
+          data-src="https://docs.google.com/forms/d/e/1FAIpQLSed8Y4guTgRfgaH-jteri3jyMtBsnMBLtcmhvaT0HjPjQodaA/viewform?embedded=true"
+          title="Start a Tech4Hack Chapter Application Form"
+          allowfullscreen>
+          Loading…
+        </iframe>
+      </div>
+    </div>
+  </div>
 
   <!-- ── SPONSORSHIP INTEREST FORM MODAL ── -->
   <div class="sponsor-modal-overlay" id="sponsorModalOverlay" role="dialog" aria-modal="true" aria-labelledby="sponsorModalTitle">
@@ -2839,20 +3361,12 @@
 
       if (!timeline) return;
 
-      // Fallback events data in case of file:// protocol CORS restrictions
+      // Timeline contains ONLY the 4 Key Events in chronological progression (earliest to latest)
       const defaultEvents = [
-        { "id": 1, "date": "September 2026", "title": "TechSangam 3.0", "location": "Thoughtworks Office, Gurugram", "side": "left" },
-        { "id": 2, "date": "September 2026", "title": "Hack & Build 2026", "location": "Nagarro Office, Gurugram", "side": "right" },
-        { "id": 3, "date": "August 2026", "title": "Buildathon 2026", "location": "Thoughtworks Office, Gurugram", "side": "left" },
-        { "id": 4, "date": "June 2026", "title": "CodeStorm Hackathon", "location": "ThoughtWorks Technologies, Gurugram", "side": "right" },
-        { "id": 5, "date": "May 2026", "title": "AI Spark", "location": "GFG Noida", "side": "left" },
-        { "id": 6, "date": "April 2026", "title": "GitHub Copilot Dev Days", "location": "GFG Noida | Meerut", "side": "right" },
-        { "id": 7, "date": "April 2026", "title": "Salesforce AI Workshop", "location": "Tech4Hack Community", "side": "left" },
-        { "id": 8, "date": "April 2026", "title": "HackFest 2026", "location": "Thoughtworks Office, Gurugram", "side": "right" },
-        { "id": 9, "date": "March 2026", "title": "Developer Meetup", "location": "Thoughtworks Office, Gurugram", "side": "left" },
-        { "id": 10, "date": "January 2026", "title": "AI for All", "location": "Microsoft Office, Gurugram", "side": "right" },
-        { "id": 11, "date": "December 2025", "title": "AI Fusion", "location": "Thoughtworks Office, Gurugram", "side": "left" },
-        { "id": 12, "date": "September 2025", "title": "TechSangam 2.0", "location": "Microsoft Office, Noida", "side": "right" }
+        { "id": 1, "date": "September 2025", "title": "TechSangam 2.0", "location": "Microsoft Office, Noida", "side": "left" },
+        { "id": 2, "date": "January 2026", "title": "AI for All", "location": "Microsoft Office, Gurugram", "side": "right" },
+        { "id": 3, "date": "October 2026", "title": "Hacktoberfest Hack Day Noida", "location": "GeeksforGeeks Noida, Sector 136", "side": "left" },
+        { "id": 4, "date": "November 2026", "title": "Build For India AI Hackathon", "location": "Thoughtworks Office, Gurugram", "side": "right" }
       ];
 
       function escapeHtml(str) {
@@ -2918,19 +3432,17 @@
           return;
         }
 
-        // Automatically sort events from most recent (newest) to oldest
+        // Automatically sort events in chronological order (earliest to latest)
         const sortedEvents = events.slice().sort(function (a, b) {
-          return parseEventDate(b.date) - parseEventDate(a.date);
+          return parseEventDate(a.date) - parseEventDate(b.date);
         });
 
-        // Render each event dynamically from JSON
+        // Render each event dynamically from JSON (alternating left / right)
         sortedEvents.forEach(function (evt, index) {
-          // Dynamic alternating left and right maintains visual timeline symmetry
           const side = (index % 2 === 0) ? 'left' : 'right';
-          const isHidden = (evt.hidden !== undefined) ? evt.hidden : (index >= 6);
 
           const container = document.createElement('div');
-          container.className = 'timeline-container ' + side + (isHidden ? ' hidden-event' : '');
+          container.className = 'timeline-container ' + side;
 
           const content = document.createElement('div');
           content.className = 'timeline-content';
@@ -2954,37 +3466,8 @@
           timeline.appendChild(container);
         });
 
-        // Setup Load More circle button
-        const hiddenEvents = Array.from(timeline.querySelectorAll('.timeline-container.hidden-event'));
-        if (loadMoreWrap && loadMoreBtn) {
-          if (hiddenEvents.length > 0) {
-            loadMoreWrap.style.display = 'flex';
-            loadMoreBtn.style.opacity = '1';
-            loadMoreBtn.style.transform = 'scale(1)';
-
-            loadMoreBtn.onclick = function () {
-              const currentHidden = Array.from(timeline.querySelectorAll('.timeline-container.hidden-event'));
-              currentHidden.forEach(function (el, i) {
-                setTimeout(function () {
-                  el.classList.add('revealing');
-                  el.classList.remove('hidden-event');
-                  el.addEventListener('animationend', function () {
-                    el.classList.remove('revealing');
-                  }, { once: true });
-                }, i * 120);
-              });
-
-              loadMoreBtn.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
-              loadMoreBtn.style.opacity = '0';
-              loadMoreBtn.style.transform = 'scale(0.6)';
-              setTimeout(function () {
-                loadMoreWrap.style.display = 'none';
-                window.dispatchEvent(new Event('scroll'));
-              }, 380);
-            };
-          } else {
-            loadMoreWrap.style.display = 'none';
-          }
+        if (loadMoreWrap) {
+          loadMoreWrap.style.display = 'none';
         }
 
         // Trigger scroll update to immediately adjust progress and active-node highlighting
@@ -3027,6 +3510,129 @@
           renderTimeline(defaultEvents);
         });
       });
+    })();
+
+
+    // ── Dynamic Site Content Hydration from data/site-content.json ──
+    (function () {
+      function hydrateFromData(data) {
+        if (!data) return;
+
+        // 1. Hydrate Stats if present
+        if (Array.isArray(data.stats)) {
+          const statsMap = {};
+          data.stats.forEach(function (s) {
+            if (s.id && s.value) statsMap[s.id] = s;
+          });
+          document.querySelectorAll('.stat-number[data-stat]').forEach(function (el) {
+            const key = el.getAttribute('data-stat');
+            if (statsMap[key]) {
+              el.textContent = statsMap[key].value;
+              const labelEl = el.nextElementSibling;
+              if (labelEl && statsMap[key].label) labelEl.textContent = statsMap[key].label;
+            }
+          });
+        }
+
+        // 2. Hydrate Chapter Setup Process if present
+        if (data.chapterProcess && Array.isArray(data.chapterProcess.steps)) {
+          const grid = document.getElementById('chapterStepsGrid');
+          if (grid && data.chapterProcess.steps.length > 0) {
+            grid.innerHTML = '';
+            data.chapterProcess.steps.forEach(function (step) {
+              const card = document.createElement('div');
+              card.className = 'chapter-step-card gradient-border-card';
+              
+              const header = document.createElement('div');
+              header.className = 'step-card-header';
+              
+              const pill = document.createElement('span');
+              pill.className = 'step-num-pill';
+              pill.textContent = 'Step ' + (step.step < 10 ? '0' + step.step : step.step);
+              
+              const iconWrap = document.createElement('div');
+              iconWrap.className = 'step-icon-wrap';
+              iconWrap.innerHTML = '<i class="' + (step.icon || 'fa-solid fa-rocket') + '"></i>';
+              
+              header.appendChild(pill);
+              header.appendChild(iconWrap);
+              
+              const title = document.createElement('h3');
+              title.className = 'step-card-title';
+              title.textContent = step.step + '. ' + step.title;
+              
+              const ul = document.createElement('ul');
+              ul.className = 'step-card-list';
+              if (Array.isArray(step.items)) {
+                step.items.forEach(function (item) {
+                  const li = document.createElement('li');
+                  li.textContent = item;
+                  ul.appendChild(li);
+                });
+              }
+              
+              card.appendChild(header);
+              card.appendChild(title);
+              card.appendChild(ul);
+              grid.appendChild(card);
+            });
+          }
+        }
+
+        // 3. Hydrate Sponsors if present
+        if (Array.isArray(data.sponsors) && data.sponsors.length > 0) {
+          const track = document.getElementById('partnersMarqueeTrack');
+          if (track) {
+            track.innerHTML = '';
+            // Render Set 1 and Set 2 for infinite ticker loop
+            for (let set = 1; set <= 2; set++) {
+              data.sponsors.forEach(function (sp) {
+                const card = document.createElement('div');
+                card.className = 'partner-logo-card';
+                
+                const img = document.createElement('img');
+                img.src = sp.logo;
+                if (sp.faviconUrl) {
+                  img.onerror = function() {
+                    this.onerror = null;
+                    this.src = sp.faviconUrl;
+                  };
+                }
+                img.alt = sp.name;
+                img.className = 'partner-logo-img' + (sp.invert ? ' invert-logo' : '');
+                img.loading = 'lazy';
+                img.decoding = 'async';
+                
+                const span = document.createElement('span');
+                span.textContent = sp.name;
+                
+                card.appendChild(img);
+                card.appendChild(span);
+                track.appendChild(card);
+              });
+            }
+          }
+        }
+      }
+
+      // Load site content via AJAX / Fetch
+      function loadSiteContent() {
+        if (window.fetch) {
+          fetch('data/site-content.json')
+            .then(function (res) { return res.json(); })
+            .then(function (json) { hydrateFromData(json); })
+            .catch(function (err) {
+              // Graceful fallback: pre-rendered HTML handles it cleanly
+              console.log('Site content loaded from pre-rendered HTML baseline.');
+            });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadSiteContent);
+      } else {
+        loadSiteContent();
+      }
     })();
 
     // ── Intersection Observer Reveal on Scroll ──
@@ -3181,6 +3787,55 @@
       });
     })();
 
+
+
+    // ── Chapter Application Google Form Modal ──
+    (function () {
+      const overlay  = document.getElementById('chapterModalOverlay');
+      const modal    = document.getElementById('chapterModal');
+      const openBtn  = document.getElementById('startChapterBtn');
+      const closeBtn = document.getElementById('chapterModalClose');
+      const iframe   = document.getElementById('chapterGoogleFormIframe');
+      const loader   = document.getElementById('chapterIframeLoader');
+      const formUrl  = 'https://docs.google.com/forms/d/e/1FAIpQLSed8Y4guTgRfgaH-jteri3jyMtBsnMBLtcmhvaT0HjPjQodaA/viewform?embedded=true';
+
+      function openModal(e) {
+        if (e) e.preventDefault();
+        if (iframe && !iframe.getAttribute('src')) {
+          iframe.src = formUrl;
+          iframe.onload = function () {
+            if (loader) {
+              loader.style.opacity = '0';
+              setTimeout(function () { loader.style.display = 'none'; }, 300);
+            }
+          };
+        }
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      if (openBtn)  openBtn.addEventListener('click', openModal);
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+      // Close on backdrop click
+      if (overlay) {
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) closeModal();
+        });
+      }
+
+      // Close on Escape key
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay && overlay.classList.contains('open')) {
+          closeModal();
+        }
+      });
+    })();
 
 
     // ── Sponsorship Modal ──

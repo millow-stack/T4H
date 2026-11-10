@@ -1,0 +1,374 @@
+{
+  "site": {
+    "name": "TECH4HACK",
+    "tagline": "LEARN • BUILD • GROW",
+    "description": "A premier developer community empowering students and engineers through hackathons, workshops, and open-source innovation.",
+    "logo": "images/favicon.png"
+  },
+  "navigation": [
+    {
+      "label": "Home",
+      "href": "#"
+    },
+    {
+      "label": "About",
+      "href": "#about"
+    },
+    {
+      "label": "Chapters",
+      "href": "#chapters"
+    },
+    {
+      "label": "Gallery",
+      "href": "gallery.html"
+    },
+    {
+      "label": "Events",
+      "href": "#events"
+    },
+    {
+      "label": "Contact",
+      "href": "#contact"
+    }
+  ],
+  "hero": {
+    "badge": "GLOBAL TECH COMMUNITY",
+    "titleLine1": "LEARN • BUILD • GROW",
+    "titleLine2": "Together with Tech4Hack",
+    "description": "Tech4Hack is a global tech community dedicated to fostering innovation, collaboration, and practical learning. We believe the best way to learn technology is by building, experimenting, and solving real-world problems together.",
+    "ctaPrimary": {
+      "label": "Join Community",
+      "href": "https://linktr.ee/tech4hack"
+    },
+    "ctaSecondary": {
+      "label": "Become a Partner",
+      "href": "#contact"
+    },
+    "ctaOutline": {
+      "label": "Explore Events",
+      "href": "#events"
+    }
+  },
+  "stats": [
+    {
+      "id": "members",
+      "value": "27k+",
+      "label": "Active Members"
+    },
+    {
+      "id": "chapters",
+      "value": "35+",
+      "label": "CHAPTERS ACROSS INDIA"
+    },
+    {
+      "id": "events",
+      "value": "100+",
+      "label": "EVENTS ORGANISED"
+    },
+    {
+      "id": "collabs",
+      "value": "55+",
+      "label": "Community COLLABORATED"
+    }
+  ],
+  "quotes": [
+    {
+      "text": "The best way to predict the future is to invent it.",
+      "author": "Alan Kay",
+      "role": "Computer Scientist"
+    },
+    {
+      "text": "Innovation distinguishes between a leader and a follower.",
+      "author": "Steve Jobs",
+      "role": "Co-founder, Apple"
+    },
+    {
+      "text": "Technology is best when it brings people together.",
+      "author": "Matt Mullenweg",
+      "role": "Creator of WordPress"
+    },
+    {
+      "text": "The advance of technology is based on making it fit in so that you don't really even notice it.",
+      "author": "Bill Gates",
+      "role": "Co-founder, Microsoft"
+    },
+    {
+      "text": "Any sufficiently advanced technology is indistinguishable from magic.",
+      "author": "Arthur C. Clarke",
+      "role": "Author & Futurist"
+    },
+    {
+      "text": "Talk is cheap. Show me the code.",
+      "author": "Linus Torvalds",
+      "role": "Creator of Linux & Git"
+    },
+    {
+      "text": "Simplicity is prerequisite for reliability.",
+      "author": "Edsger W. Dijkstra",
+      "role": "Computer Science Pioneer"
+    },
+    {
+      "text": "The only way to do great work is to love what you do.",
+      "author": "Steve Jobs",
+      "role": "Co-founder, Apple"
+    },
+    {
+      "text": "Make it work, make it right, make it fast.",
+      "author": "Kent Beck",
+      "role": "Software Engineer"
+    },
+    {
+      "text": "First, solve the problem. Then, write the code.",
+      "author": "John Johnson",
+      "role": "Software Developer"
+    },
+    {
+      "text": "Programs must be written for people to read, and only incidentally for machines to execute.",
+      "author": "Harold Abelson",
+      "role": "MIT Professor"
+    },
+    {
+      "text": "Everyone should learn to program a computer, because it teaches you how to think.",
+      "author": "Steve Jobs",
+      "role": "Co-founder, Apple"
+    }
+  ],
+  "about": {
+    "title": "About Us",
+    "subtitle": "Fostering innovation, collaboration, and practical learning to empower the next generation of builders.",
+    "heading": "Who We Are",
+    "paragraphs": [
+      "We're more than just a tech community. We're a movement dedicated to empowering the next generation of innovators, fostering collaboration, and building technologies that make a difference.",
+      "Tech4Hack is a global tech community dedicated to fostering innovation, collaboration, and practical learning.",
+      "We believe the best way to learn technology is by building, experimenting, and solving real-world problems together."
+    ],
+    "mission": "To create an inclusive environment where aspiring developers, seasoned professionals, and curious minds can come together to learn, build, and create meaningful impact through technology.",
+    "vision": "To create one of the world's most vibrant communities of innovators, creators, and future technology leaders."
+  },
+  "whatWeDo": {
+    "title": "What We Do",
+    "subtitle": "Our core initiatives designed to bridge the gap between learning and real-world implementation.",
+    "items": [
+      {
+        "icon": "fa-rocket",
+        "title": "Hackathons",
+        "description": "Challenge-driven innovation events where participants build solutions to real-world problems."
+      },
+      {
+        "icon": "fa-bullseye",
+        "title": "Workshops",
+        "description": "Industry-focused sessions on AI, cloud computing, development tools, and emerging technologies."
+      },
+      {
+        "icon": "fa-handshake",
+        "title": "Community Meetups",
+        "description": "Networking opportunities that connect students, professionals, and industry leaders."
+      },
+      {
+        "icon": "fa-lightbulb",
+        "title": "Real-World Projects",
+        "description": "Hands-on project experiences designed to bridge the gap between learning and implementation."
+      },
+      {
+        "icon": "fa-globe",
+        "title": "Collaboration Network",
+        "description": "A thriving ecosystem of developers, designers, founders, and problem-solvers collaborating globally.",
+        "wide": true
+      }
+    ]
+  },
+  "chapterProcess": {
+    "title": "Chapter Setup Process",
+    "subtitle": "From Ideation to Impact — A Step-by-Step Journey",
+    "description": "Empowering passionate student leaders across India to launch, nurture, and lead thriving Tech4Hack chapters in their colleges.",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Set Up Your Chapter",
+        "badge": "Digital Footprint",
+        "icon": "fa-solid fa-users-gear",
+        "items": [
+          "Create a WhatsApp group.",
+          "Create a Gmail account.",
+          "Create an Instagram page.",
+          "Create a LinkedIn page."
+        ]
+      },
+      {
+        "step": 2,
+        "title": "Obtain College Permission",
+        "badge": "Administration",
+        "icon": "fa-solid fa-stamp",
+        "items": [
+          "Get approval from the Head of Department (HOD) and Dean.",
+          "Seek support from the college, if required."
+        ]
+      },
+      {
+        "step": 3,
+        "title": "Create an Official College Email ID",
+        "badge": "Official Identity",
+        "icon": "fa-solid fa-envelope-open-text",
+        "items": [
+          "Set up an official college email ID (e.g., tech4hack@college.ac.in).",
+          "Use it for all official communications."
+        ]
+      },
+      {
+        "step": 4,
+        "title": "Build Your Core Team",
+        "badge": "Leadership",
+        "icon": "fa-solid fa-user-group",
+        "items": [
+          "Appoint 1 Vice President / Co-Lead.",
+          "Recruit 6 Core Team Members.",
+          "Onboard 12–15 Volunteers."
+        ]
+      },
+      {
+        "step": 5,
+        "title": "Organise Your First Event",
+        "badge": "Community Launch",
+        "icon": "fa-solid fa-chalkboard-user",
+        "items": [
+          "Start with a technical workshop or speaker session.",
+          "Build your community and engage students."
+        ]
+      },
+      {
+        "step": 6,
+        "title": "Plan Bigger Initiatives",
+        "badge": "Scale & Impact",
+        "icon": "fa-solid fa-rocket",
+        "items": [
+          "Build on the success of your first event.",
+          "Organise hackathons, workshops, and other technical events."
+        ]
+      }
+    ],
+    "cta": {
+      "text": "Ready to launch a chapter in your college?",
+      "buttonText": "Start a Chapter",
+      "buttonLink": "https://docs.google.com/forms/d/e/1FAIpQLSed8Y4guTgRfgaH-jteri3jyMtBsnMBLtcmhvaT0HjPjQodaA/viewform"
+    }
+  },
+  "sponsors": [
+    {
+      "name": "MICROSOFT",
+      "website": "https://www.microsoft.com",
+      "faviconUrl": "https://www.google.com/s2/favicons?domain=microsoft.com&sz=128&utm_source=chatgpt.com",
+      "logo": "images/partners/Microsoft.png"
+    },
+    {
+      "name": "GOOGLE",
+      "website": "https://www.google.com",
+      "faviconUrl": "https://www.google.com/s2/favicons?domain=google.com&sz=128&utm_source=chatgpt.com",
+      "logo": "images/partners/Google.png"
+    },
+    {
+      "name": "GITHUB",
+      "website": "https://github.com",
+      "faviconUrl": "https://www.google.com/s2/favicons?domain=github.com&sz=128&utm_source=chatgpt.com",
+      "logo": "images/partners/GitHub.png",
+      "invert": true
+    },
+    {
+      "name": "PAYTM",
+      "website": "https://paytm.com",
+      "faviconUrl": "https://www.google.com/s2/favicons?domain=paytm.com&sz=128&utm_source=chatgpt.com",
+      "logo": "images/partners/Paytm.png"
+    },
+    {
+      "name": "MLH",
+      "website": "https://mlh.com",
+      "faviconUrl": "https://www.google.com/s2/favicons?domain=mlh.com&sz=128&utm_source=chatgpt.com",
+      "logo": "images/partners/MLH.png"
+    },
+    {
+      "name": "THOUGHTWORKS",
+      "website": "https://www.thoughtworks.com",
+      "faviconUrl": "https://www.google.com/s2/favicons?domain=thoughtworks.com&sz=128&utm_source=chatgpt.com",
+      "logo": "images/partners/Thoughtworks.png"
+    },
+    {
+      "name": "NAGARRO",
+      "website": "https://www.nagarro.com",
+      "faviconUrl": "https://www.google.com/s2/favicons?domain=nagarro.com&sz=128&utm_source=chatgpt.com",
+      "logo": "images/partners/Nagarro.png"
+    },
+    {
+      "name": "UNSTOP",
+      "website": "https://unstop.com",
+      "faviconUrl": "https://www.google.com/s2/favicons?domain=unstop.com&sz=128&utm_source=chatgpt.com",
+      "logo": "images/partners/Unstop.png"
+    },
+    {
+      "name": "DUALITY",
+      "website": "https://www.duality.ai",
+      "faviconUrl": "https://www.google.com/s2/favicons?domain=duality.ai&sz=128&utm_source=chatgpt.com",
+      "logo": "images/partners/Duality.png"
+    },
+    {
+      "name": "TINYFISH",
+      "website": "https://www.tinyfish.ai",
+      "faviconUrl": "https://www.google.com/s2/favicons?domain=tinyfish.ai&sz=128&utm_source=chatgpt.com",
+      "logo": "images/partners/Tinyfish.png"
+    },
+    {
+      "name": "HEYGEN",
+      "website": "https://www.heygen.com",
+      "faviconUrl": "https://www.google.com/s2/favicons?domain=heygen.com&sz=128&utm_source=chatgpt.com",
+      "logo": "images/partners/HeyGen.png"
+    },
+    {
+      "name": "REDBULL",
+      "website": "https://www.redbull.com",
+      "faviconUrl": "https://www.google.com/s2/favicons?domain=redbull.com&sz=128&utm_source=chatgpt.com",
+      "logo": "images/partners/RedBull.png"
+    }
+  ],
+  "whyJoin": {
+    "title": "Why Join Tech4Hack?",
+    "subtitle": "Boost your learning and accelerate your career with support from our global network.",
+    "items": [
+      {
+        "icon": "fa-screwdriver-wrench",
+        "title": "Learn by Building",
+        "description": "Gain practical experience through projects, hackathons, and real challenges."
+      },
+      {
+        "icon": "fa-building",
+        "title": "Connect with Industry",
+        "description": "Meet professionals, mentors, founders, and fellow innovators."
+      },
+      {
+        "icon": "fa-chart-line",
+        "title": "Grow Your Network",
+        "description": "Become part of a fast-growing community of technology enthusiasts."
+      },
+      {
+        "icon": "fa-trophy",
+        "title": "Showcase Your Skills",
+        "description": "Participate in competitions, demos, and community initiatives."
+      },
+      {
+        "icon": "fa-briefcase",
+        "title": "Career Opportunities",
+        "description": "Access internships, jobs, and mentorship through our network."
+      },
+      {
+        "icon": "fa-folder-open",
+        "title": "Community Projects",
+        "description": "Collaborate with talented peers on impactful open-source projects."
+      }
+    ]
+  },
+  "contact": {
+    "email": "contact@tech4hack.com",
+    "whatsapp": "https://api.whatsapp.com/send?phone=449",
+    "linkedin": "https://www.linkedin.com/company/tech4hack",
+    "instagram": "https://www.instagram.com/tech4hack",
+    "github": "https://github.com/tech4hack",
+    "linktree": "https://linktr.ee/tech4hack"
+  }
+}
